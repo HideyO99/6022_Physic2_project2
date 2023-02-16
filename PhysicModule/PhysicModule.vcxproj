@@ -18,29 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\iBodyType.h" />
-    <ClInclude Include="src\iBoxShape.h" />
-    <ClInclude Include="src\iCollision.h" />
-    <ClInclude Include="src\iCylinderShape.h" />
-    <ClInclude Include="src\iPlaneShape.h" />
-    <ClInclude Include="src\iRigidBody.h" />
-    <ClInclude Include="src\iShpereShape.h" />
-    <ClInclude Include="src\iShape.h" />
-    <ClInclude Include="src\iRigidBodyDesc.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\iBoxShape.cpp" />
-    <ClCompile Include="src\iCylinderShape.cpp" />
-    <ClCompile Include="src\iPlaneShape.cpp" />
-    <ClCompile Include="src\iRigidBodyDesc.cpp" />
-    <ClCompile Include="src\iShpereShape.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{eddaebbd-5e6b-4586-aec0-01ec3a6d559e}</ProjectGuid>
-    <RootNamespace>PhysicInterface</RootNamespace>
+    <ProjectGuid>{dd188609-5007-414e-aaec-f3fb7da8cd6d}</ProjectGuid>
+    <RootNamespace>PhysicModule</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -89,10 +71,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)dev\inc;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)dev\inc;$(SolutionDir)PhysicInterface\src;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <SourcePath>$(SolutionDir)PhysicInterface\src;$(SourcePath)</SourcePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)dev\inc;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)dev\inc;$(SolutionDir)PhysicInterface\src;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <SourcePath>$(SolutionDir)PhysicInterface\src;$(SourcePath)</SourcePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -150,6 +136,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\RigidBody.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\RigidBody.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
