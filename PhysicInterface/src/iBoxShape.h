@@ -1,8 +1,8 @@
 #pragma once
-#include "Shape.h"
+#include "iShape.h"
 
 
-class iBoxShape : public Shape
+class iBoxShape : public iShape
 {
 public:
 	iBoxShape(const Vec3& halfExtent  );
@@ -10,15 +10,15 @@ public:
 
 	const Vec3& getHalfExtents() const;
 
-	static iBoxShape* cast(Shape* shape);
+	static iBoxShape* cast(iShape* shape);
 
 protected:
-	iBoxShape(shapeType type) : Shape(type) {}
+	iBoxShape(shapeType type) : iShape(type) {}
 
 private:
 	Vec3 m_halfExtent;
 
-	iBoxShape(const iBoxShape&) : Shape(shapeType::Box) {}
+	iBoxShape(const iBoxShape&) : iShape(shapeType::Box) {}
 	
 	iBoxShape& operator=(const iBoxShape&)
 	{

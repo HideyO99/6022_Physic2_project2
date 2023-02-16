@@ -1,7 +1,7 @@
 #pragma once
-#include "Shape.h"
+#include "iShape.h"
 
-class iPlaneShape : public Shape
+class iPlaneShape : public iShape
 {
 public:
 	iPlaneShape(const Vec3& norm, float dotProd);//todo
@@ -10,16 +10,16 @@ public:
 	const Vec3& getNormal() const;
 	float getDotProd() const;
 
-	static iPlaneShape* cast(Shape* shape);
+	static iPlaneShape* cast(iShape* shape);
 
 protected:
-	iPlaneShape(shapeType type) : Shape(type) {}
+	iPlaneShape(shapeType type) : iShape(type) {}
 
 private:
 	Vec3 m_Normal;
 	float m_DotProd;
 
-	iPlaneShape(const iPlaneShape&) : Shape(shapeType::Plane) {}
+	iPlaneShape(const iPlaneShape&) : iShape(shapeType::Plane) {}
 
 	iPlaneShape& operator=(const iPlaneShape&)
 	{

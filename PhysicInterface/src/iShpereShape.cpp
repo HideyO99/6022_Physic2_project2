@@ -1,7 +1,7 @@
 #include "iShpereShape.h"
 
 iShpereShape::iShpereShape(float rad)
-	: Shape(shapeType::Sphere)
+	: iShape(shapeType::Sphere)
 	, m_Rad(rad)
 {
 
@@ -16,7 +16,7 @@ float iShpereShape::getRad() const
 	return m_Rad;
 }
 
-iShpereShape* iShpereShape::cast(Shape* shape)
+iShpereShape* iShpereShape::cast(iShape* shape)
 {
 	return dynamic_cast<iShpereShape*>(shape);
 }

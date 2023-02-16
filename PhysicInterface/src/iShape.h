@@ -13,10 +13,10 @@ enum class shapeType
 	Sphere,
 };
 
-class Shape
+class iShape
 {
 public:
-	virtual ~Shape();
+	virtual ~iShape() {}
 	shapeType getShapeType()
 	{
 		return m_shapeType;
@@ -24,11 +24,11 @@ public:
 
 private:
 	shapeType m_shapeType;
-	Shape(const Shape&);
-	Shape& operator=(const Shape&);
+	iShape(const iShape&);
+	iShape& operator=(const iShape&) {}
 
 protected:
-	Shape(shapeType type) 
+	iShape(shapeType type) 
 	{
 		m_shapeType = type;
 	}

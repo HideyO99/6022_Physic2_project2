@@ -1,7 +1,7 @@
 #pragma once
-#include "Shape.h"
+#include "iShape.h"
 
-class iShpereShape : public Shape
+class iShpereShape : public iShape
 {
 public:
 	iShpereShape(float rad);
@@ -9,15 +9,15 @@ public:
 
 	float getRad() const;
 
-	static iShpereShape* cast(Shape* shape);
+	static iShpereShape* cast(iShape* shape);
 
 protected:
-	iShpereShape(shapeType type) : Shape(type) {}
+	iShpereShape(shapeType type) : iShape(type) {}
 
 private:
 	float m_Rad;
 
-	iShpereShape(const iShpereShape&) : Shape(shapeType::Sphere) {}
+	iShpereShape(const iShpereShape&) : iShape(shapeType::Sphere) {}
 
 	iShpereShape& operator=(const iShpereShape&)
 	{

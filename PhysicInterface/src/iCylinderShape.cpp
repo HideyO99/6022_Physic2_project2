@@ -1,7 +1,7 @@
 #include "iCylinderShape.h"
 
 iCylinderShape::iCylinderShape(const Vec3& halfExtent)
-    : Shape(shapeType::Cylinder)
+    : iShape(shapeType::Cylinder)
     , m_halfExtent(halfExtent)
 {
 }
@@ -15,7 +15,7 @@ const Vec3& iCylinderShape::getHalfExtents() const
     return m_halfExtent;
 }
 
-iCylinderShape* iCylinderShape::cast(Shape* shape)
+iCylinderShape* iCylinderShape::cast(iShape* shape)
 {
 	return dynamic_cast<iCylinderShape*>(shape);
 }

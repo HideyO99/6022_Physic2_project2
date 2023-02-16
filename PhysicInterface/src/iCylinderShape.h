@@ -1,7 +1,7 @@
 #pragma once
-#include "Shape.h"
+#include "iShape.h"
 
-class iCylinderShape : public Shape
+class iCylinderShape : public iShape
 {
 public:
 	iCylinderShape(const Vec3& halfExtent);
@@ -9,15 +9,15 @@ public:
 
 	const Vec3& getHalfExtents() const;
 
-	static iCylinderShape* cast(Shape* shape);
+	static iCylinderShape* cast(iShape* shape);
 
 protected:
-	iCylinderShape(shapeType type) : Shape(type) {}
+	iCylinderShape(shapeType type) : iShape(type) {}
 
 private:
 	Vec3 m_halfExtent;
 
-	iCylinderShape(const iCylinderShape&) : Shape(shapeType::Cylinder) {}
+	iCylinderShape(const iCylinderShape&) : iShape(shapeType::Cylinder) {}
 
 	iCylinderShape& operator=(const iCylinderShape&)
 	{

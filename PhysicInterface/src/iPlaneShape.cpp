@@ -1,7 +1,7 @@
 #include "iPlaneShape.h"
 
 iPlaneShape::iPlaneShape(const Vec3& norm, float dotProd)
-	: Shape(shapeType::Plane)
+	: iShape(shapeType::Plane)
 	, m_Normal(norm)
 	, m_DotProd(dotProd)
 {
@@ -21,7 +21,7 @@ float iPlaneShape::getDotProd() const
 	return m_DotProd;
 }
 
-iPlaneShape* iPlaneShape::cast(Shape* shape)
+iPlaneShape* iPlaneShape::cast(iShape* shape)
 {
 	return dynamic_cast<iPlaneShape*>(shape);
 }
