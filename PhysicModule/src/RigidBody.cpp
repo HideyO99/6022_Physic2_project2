@@ -121,4 +121,17 @@ void RigidBody::addDamping(float dt)
 
 }
 
+void RigidBody::setRenderPosition(Vec3* pos)
+{
+	m_renderPosition = pos;
+}
+
+void RigidBody::update(float step)
+{
+	if (m_renderPosition != nullptr)
+	{
+		m_renderPosition->x += step;
+	}
+}
+
 
