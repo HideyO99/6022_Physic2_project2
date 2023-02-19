@@ -22,7 +22,10 @@
     <ClInclude Include="src\iBodyType.h" />
     <ClInclude Include="src\iBoxShape.h" />
     <ClInclude Include="src\iCollision.h" />
+    <ClInclude Include="src\iCollisionListener.h" />
     <ClInclude Include="src\iCylinderShape.h" />
+    <ClInclude Include="src\iPhysicFactory.h" />
+    <ClInclude Include="src\iPhysicWorld.h" />
     <ClInclude Include="src\iPlaneShape.h" />
     <ClInclude Include="src\iRigidBody.h" />
     <ClInclude Include="src\iShpereShape.h" />
@@ -90,9 +93,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)dev\inc;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)dev\lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)dev\inc;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)dev\lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
