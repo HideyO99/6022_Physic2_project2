@@ -21,8 +21,13 @@ public:
 
 	virtual void addForce(const Vec3& force) override;
 	virtual void addForceAP(const Vec3& force, const Vec3& at) override;
+	
+	virtual void addImpulse(const Vec3& impulse) override;
+	virtual void addImpulseAP(const Vec3& impulse, const Vec3& at) override;
 
 	virtual void addTorque(const Vec3& torque) override;
+	virtual void addTorqueImpulse(const Vec3& torqueImpulse) override;
+
 
 	void setGravity(const Vec3& gravity);
 	void updateAcc();

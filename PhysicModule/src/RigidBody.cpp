@@ -88,9 +88,24 @@ void RigidBody::addForceAP(const Vec3& force, const Vec3& at)
 	addTorque(glm::cross(at, force));
 }
 
+void RigidBody::addImpulse(const Vec3& impulse)
+{
+	m_velocity += impulse * m_inverseMass;
+}
+
+void RigidBody::addImpulseAP(const Vec3& impulse, const Vec3& at)
+{
+	addTorqueImpulse(glm::cross(at, impulse));
+}
+
 void RigidBody::addTorque(const Vec3& torque)
 {
 	m_torque += torque;
+}
+
+void RigidBody::addTorqueImpulse(const Vec3& torqueImpulse)
+{
+	m_angularVelocity += torqueImpulse;
 }
 
 void RigidBody::setGravity(const Vec3& gravity)
