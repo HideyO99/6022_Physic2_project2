@@ -16,6 +16,10 @@ public:
 	virtual void addForce(const Vec3& force) = 0;
 	virtual void addForceAP(const Vec3& force, const Vec3& at) = 0;
 
+	virtual void addImpulse(const Vec3& impulse) = 0;
+	virtual void addImpulseAP(const Vec3& impulse, const Vec3& at) = 0;
+
+
 	virtual void addTorque(const Vec3& torque) = 0;
 
 protected:
