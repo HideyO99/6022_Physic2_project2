@@ -2,6 +2,7 @@
 #include <iPhysicWorld.h>
 #include <vector>
 #include "RigidBody.h"
+#include "CollisionHandler.h"
 
 class PhysicWorld : public iPhysicWorld
 {
@@ -22,7 +23,7 @@ private:
 	std::vector<iCollision*> m_body;
 	std::vector<RigidBody*> m_rigidBody;
 
-	//collisionHandler* m_collisionHandler;
+	CollisionHandler* m_collisionHandler;
 	iCollisionListener* m_collisionListener;
 
 	PhysicWorld(const PhysicWorld&) {}
