@@ -137,9 +137,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\CollidingBody.h" />
+    <ClInclude Include="src\CollisionHandler.h" />
+    <ClInclude Include="src\PhysicFactory.h" />
+    <ClInclude Include="src\PhysicWorld.h" />
     <ClInclude Include="src\RigidBody.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\CollisionHandler.cpp" />
+    <ClCompile Include="src\PhysicFactory.cpp" />
+    <ClCompile Include="src\PhysicWorld.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
