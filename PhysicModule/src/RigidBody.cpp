@@ -108,6 +108,46 @@ void RigidBody::updateAcc()
 	m_angularAcceleration = m_torque;
 }
 
+void RigidBody::verletStep1(float dt)
+{
+	if (m_bStatic)
+	{
+		return;
+	}
+
+	m_prevPosition = m_position;
+	// s = ut + 1/2(at^2)
+	m_position += (m_velocity + (0.5f * m_acceleration * dt)) * dt; 
+	
+	// theta = omega*t + 1/2(alpha*t^2) angular rotation
+	Vec3 theta = (m_angularVelocity + (0.5f * m_angularAcceleration * dt)) * dt;
+
+	float angle = glm::length(theta);
+	Vec3 theta_normal = glm::normalize(theta);
+	
+	if (angle != 0.f)
+	{
+		Quat rotate = glm::angleAxis(angle, theta_normal);
+		m_rotation *= rotate;
+	}
+}
+
+void RigidBody::verletStep2(float dt)
+{
+	if (m_bStatic)
+	{
+		return;
+	}
+
+	m_velocity += m_acceleration * (dt / 2);
+	m_angularVelocity += m_angularAcceleration * (dt / 2);
+}
+
+void RigidBody::verletStep3(float dt)
+{
+	verletStep2(dt);
+}
+
 void RigidBody::killForce()
 {
 	m_force = Vec3(0.f);
@@ -119,6 +159,7 @@ void RigidBody::addDamping(float dt)
 	m_velocity *= pow((1.f - m_linearDamping), dt);
 	m_angularVelocity *= pow((1.f - m_angularDamping), dt);
 
+	//todo
 }
 
 void RigidBody::setRenderPosition(Vec3* pos)

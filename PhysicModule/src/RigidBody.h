@@ -27,11 +27,18 @@ public:
 	void setGravity(const Vec3& gravity);
 	void updateAcc();
 
+	void verletStep1(float dt);
+	void verletStep2(float dt);
+	void verletStep3(float dt);
+
+
 	void killForce();
 	void addDamping(float dt);
 
 	void setRenderPosition(Vec3* pos);
 	void update(float step);
+
+	friend class CollisionHandler;
 
 private:
 	float m_mass;
