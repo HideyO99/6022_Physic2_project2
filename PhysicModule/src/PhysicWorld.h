@@ -26,6 +26,9 @@ private:
 	CollisionHandler* m_collisionHandler;
 	iCollisionListener* m_collisionListener;
 
+	void addRigid(iCollision* body);
+	void removeRigid(iCollision* body);
+
 	PhysicWorld(const PhysicWorld&) {}
 	PhysicWorld& operator=(const PhysicWorld&) 
 	{
