@@ -189,6 +189,60 @@ bool CollisionHandler::SphereVsPlane(float dt, RigidBody* sphere, iSphereShape* 
 
 void CollisionHandler::collide(float dt, std::vector<iCollision*>& body, std::vector<CollidingBody>& collision)
 {
+	int count = body.size();
+	bool bCollision = false;
+	for (size_t i = 0; i < count-1; i++)
+	{
+		iCollision* bodyA = body[i];
+		for (size_t j = 0; j < count; j++)
+		{
+			iCollision* bodyB = body[j];
+			bCollision = false;
+
+			if (bodyA->getBodyType() == BodyType::RigidBody)
+			{
+				if (bodyB->getBodyType() == BodyType::RigidBody)
+				{
+					bCollision = RigidVsRigid(dt, RigidBody::cast(bodyA), RigidBody::cast(bodyB));
+				}
+			}
+
+			if (bCollision)
+			{
+				collision.push_back(CollidingBody(bodyA, bodyB));
+			}
+		}
+	}
+
+}
+
+bool CollisionHandler::RigidVsRigid(float dt, RigidBody* rigid1, RigidBody* rigid2)
+{
+	iShape* shapeA = rigid1->getShape();
+	iShape* shapeB = rigid2->getShape();
+
+	bool bCollision = false;
+
+	if (shapeA->getShapeType() == shapeType::Sphere)
+	{
+		if (shapeB->getShapeType() == shapeType::Sphere)
+		{
+			bCollision = SphereVsSphere(dt, rigid1, iSphereShape::cast(shapeA), rigid2, iSphereShape::cast(shapeB));
+		}
+		else if(shapeB->getShapeType() == shapeType::Plane)
+		{
+			bCollision = SphereVsPlane(dt, rigid1, iSphereShape::cast(shapeA), rigid2, iPlaneShape::cast(shapeB));
+		}
+	}
+	else if(shapeA->getShapeType() == shapeType::Plane)
+	{
+		if (shapeB->getShapeType() == shapeType::Sphere)
+		{
+			bCollision = SphereVsPlane(dt, rigid2, iSphereShape::cast(shapeB), rigid1, iPlaneShape::cast(shapeA));
+		}
+	}
+
+	return bCollision;
 }
 
 bool CollisionHandler::testMovingSphereVsSphere(const Vec3& s0_center, const float s0_rad, const Vec3& s1_center, const float s1_rad, const Vec3& v0, const Vec3& v1, float& t)
