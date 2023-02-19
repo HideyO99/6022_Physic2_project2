@@ -5,6 +5,9 @@
 #include <iPlaneShape.h>
 #include <iSphereShape.h>
 
+#define ELASTIC_COEF 0.4f
+#define INELASTIC_COEF (1.f - ELASTIC_COEF)
+
 class CollisionHandler
 {
 public:
@@ -14,7 +17,7 @@ public:
 	glm::vec3 ClosestPointPlain(const glm::vec3& point, const glm::vec3& planNormal, float dotProd);
 
 	bool SphereVsSphere(float dt, RigidBody* body1, iSphereShape* sphere1, RigidBody* body2, iSphereShape* sphere2);
-	bool SphereVsPlane(float dt, RigidBody* body1, iSphereShape* shape1, RigidBody* body2, iPlaneShape* shape2);
+	bool SphereVsPlane(float dt, RigidBody* sphere, iSphereShape* sphereShape, RigidBody* plane, iPlaneShape* planeShape);
 	void collide(float dt, std::vector<iCollision*>& body, std::vector<CollidingBody>& collision);
 
 	bool RigidVsRigid(float dt, RigidBody* rigid1, RigidBody* rigid2);
