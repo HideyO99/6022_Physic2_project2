@@ -65,6 +65,70 @@ void PhysicWorld::removeBody(iCollision* body)
 
 void PhysicWorld::timeStep(float dt)
 {
+	int count = int(m_body.size());
+	int count_rigid = int(m_rigidBody.size());
+
+	for (int i = 0; i < count_rigid; i++)
+	{
+		m_rigidBody[i]->update(dt);
+	}
+
+	//verlet
+	//step 0
+	for (int i = 0; i < count_rigid; i++)
+	{
+		if (!m_rigidBody[i]->isStatic())
+		{
+			m_rigidBody[i]->setGravity(m_gravity);
+			m_rigidBody[i]->updateAcc();
+		}
+	}
+
+	//step 3 update velocity
+	for (int i = 0; i < count_rigid; i++)
+	{
+		if (!m_rigidBody[i]->isStatic())
+		{
+			m_rigidBody[i]->verletStep3(dt);
+			m_rigidBody[i]->addDamping(dt * 0.5f);
+		}
+	}
+
+	//step 1 - position update
+	for (int i = 0; i < count_rigid; i++)
+	{
+		if (!m_rigidBody[i]->isStatic())
+		{
+			m_rigidBody[i]->verletStep1(dt);
+		}
+	}
+
+	// collision handler
+	std::vector<CollidingBody> collision;
+	m_collisionHandler->collide(dt, m_body, collision);
+
+	for (int i = 0; i < collision.size(); i++)
+	{
+		CollidingBody& collisionBody = collision[i];
+		//play sound here
+		m_collisionListener->notifyCollision(collisionBody.bodyA, collisionBody.bodyB);
+	}
+
+	//step 2 - update velocity
+	for (int i = 0; i < count_rigid; i++)
+	{
+		if (!m_rigidBody[i]->isStatic())
+		{
+			m_rigidBody[i]->verletStep2(dt);
+			m_rigidBody[i]->addDamping(dt * 0.5f);
+			m_rigidBody[i]->killForce();
+		}
+	}
+}
+
+void PhysicWorld::addToCollisionListener(iCollisionListener* listener)
+{
+	m_collisionListener = listener;
 }
 
 void PhysicWorld::addRigid(iCollision* body)
