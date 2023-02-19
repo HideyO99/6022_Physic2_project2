@@ -24,7 +24,7 @@
     <ClInclude Include="src\iCylinderShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\iShpereShape.h">
+    <ClInclude Include="src\iSphereShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\iPlaneShape.h">
@@ -59,7 +59,7 @@
     <ClCompile Include="src\iCylinderShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\iShpereShape.cpp">
+    <ClCompile Include="src\iSphereShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\iPlaneShape.cpp">

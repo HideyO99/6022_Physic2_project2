@@ -28,7 +28,7 @@
     <ClInclude Include="src\iPhysicWorld.h" />
     <ClInclude Include="src\iPlaneShape.h" />
     <ClInclude Include="src\iRigidBody.h" />
-    <ClInclude Include="src\iShpereShape.h" />
+    <ClInclude Include="src\iSphereShape.h" />
     <ClInclude Include="src\iShape.h" />
     <ClInclude Include="src\iRigidBodyDesc.h" />
   </ItemGroup>
@@ -37,7 +37,7 @@
     <ClCompile Include="src\iCylinderShape.cpp" />
     <ClCompile Include="src\iPlaneShape.cpp" />
     <ClCompile Include="src\iRigidBodyDesc.cpp" />
-    <ClCompile Include="src\iShpereShape.cpp" />
+    <ClCompile Include="src\iSphereShape.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
