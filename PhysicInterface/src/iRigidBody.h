@@ -19,8 +19,8 @@ public:
 	virtual void addImpulse(const Vec3& impulse) = 0;
 	virtual void addImpulseAP(const Vec3& impulse, const Vec3& at) = 0;
 
-
 	virtual void addTorque(const Vec3& torque) = 0;
+	virtual void addTorqueImpulse(const Vec3& torqueImpulse) = 0;
 
 protected:
 	iRigidBody() : iCollision(BodyType::RigidBody)
