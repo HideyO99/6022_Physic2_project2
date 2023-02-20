@@ -54,8 +54,8 @@ bool CollisionHandler::SphereVsSphere(float dt, RigidBody* body1, iSphereShape* 
 	Vec3 p2 = body2->m_mass * body2->m_velocity;
 	Vec3 sumP = p1 + p2;
 	float sumMass = body1->m_mass + body2->m_mass;
-	float factorA = body2->m_mass / sumMass;
-	float factorB = body1->m_mass / sumMass;
+	float factorA = body1->m_mass / sumMass;
+	float factorB = body2->m_mass / sumMass;
 	p1 = sumP * factorA;
 	p2 = sumP * factorB;
 
@@ -172,6 +172,10 @@ bool CollisionHandler::SphereVsPlane(float dt, RigidBody* sphere, iSphereShape* 
 			{
 				sphere->m_velocity -= planeShape->getNormal() * VDotNorm;
 			}
+			if (sphere->m_position.y < 0.f)
+			{
+				sphere->m_position.y = 1.f;
+			}
 		}
 		else
 		{
@@ -196,6 +200,8 @@ void CollisionHandler::collide(float dt, std::vector<iCollision*>& body, std::ve
 		iCollision* bodyA = body[i];
 		for (size_t j = 0; j < count; j++)
 		{
+			if (i == j)
+				continue;
 			iCollision* bodyB = body[j];
 			bCollision = false;
 
