@@ -135,6 +135,9 @@
     <ClCompile Include="src\Physic\cObject.cpp">
       <Filter>Physic</Filter>
     </ClCompile>
+    <ClCompile Include="src\Physic\CollisionListener.cpp">
+      <Filter>Physic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\globalOpenGL.h">
@@ -219,6 +222,9 @@
       <Filter>Physic</Filter>
     </ClInclude>
     <ClInclude Include="src\Physic\cObject.h">
+      <Filter>Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\CollisionListener.h">
       <Filter>Physic</Filter>
     </ClInclude>
   </ItemGroup>

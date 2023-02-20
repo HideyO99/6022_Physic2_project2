@@ -111,3 +111,43 @@ bool cXML::findPathFromModelName(std::string modelName, std::string& modelPath)
 
 	return true;
 }
+
+void cXML::loadSoundFromXML()
+{
+	pugi::xml_document music_xml;
+	pugi::xml_parse_result result = music_xml.load_file("asset/sound_list.xml");
+	if (!result)
+	{
+		std::cout << "Unable to load XML file" << std::endl;
+		return;
+	}
+	std::cout << "Loaded XML" << std::endl;
+
+	int i = 0;
+	int j = 0;
+
+	pugi::xml_object_range<pugi::xml_node_iterator> fx = music_xml.child("fx").children();
+	if (fx.empty())
+	{
+		std::cout << "There are no entries" << std::endl;
+		return;
+	}
+
+	pugi::xml_node_iterator fx_i;
+	i = j = 0;
+
+	for (fx_i = fx.begin(); fx_i != fx.end(); fx_i++)
+	{
+		pugi::xml_node fx_path = *fx_i;
+		pugi::xml_node_iterator fx_it;
+		for (fx_it = fx_path.children().begin(); fx_it != fx_path.children().end(); fx_it++)
+		{
+			pugi::xml_node pathNode = *fx_it;
+			if (!pathNode.children().empty())
+			{
+				my_fx_path[i] = pathNode.child_value();
+				i++;
+			}
+		}
+	}
+}

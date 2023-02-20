@@ -116,7 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;pugixml.lib;PhysicInterface.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;pugixml.lib;PhysicInterface.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,7 +133,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;pugixml.lib;PhysicInterface.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;pugixml.lib;PhysicInterface.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -148,6 +148,7 @@
     <ClCompile Include="src\AI\cSteering.cpp" />
     <ClCompile Include="src\Animation\AnimationManager.cpp" />
     <ClCompile Include="src\Animation\cAnimation.cpp" />
+    <ClCompile Include="src\FMOD\FModManager.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\GUI\cGUI.cpp" />
     <ClCompile Include="src\Light\cLight.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MeshObj\cMeshObj.cpp" />
     <ClCompile Include="src\Physic\cObject.cpp" />
+    <ClCompile Include="src\Physic\CollisionListener.cpp" />
     <ClCompile Include="src\Physic\Physic.cpp" />
     <ClCompile Include="src\Shader\cShader.cpp" />
     <ClCompile Include="src\Shader\cShaderManager.cpp" />
@@ -181,12 +183,14 @@
     <ClInclude Include="src\AI\cSteering.h" />
     <ClInclude Include="src\Animation\AnimationManager.h" />
     <ClInclude Include="src\Animation\cAnimation.h" />
+    <ClInclude Include="src\FMOD\FmodManager.h" />
     <ClInclude Include="src\globalOpenGL.h" />
     <ClInclude Include="src\GUI\cGUI.h" />
     <ClInclude Include="src\Light\cLight.h" />
     <ClInclude Include="src\Light\cLightManager.h" />
     <ClInclude Include="src\MeshObj\cMeshObj.h" />
     <ClInclude Include="src\Physic\cObject.h" />
+    <ClInclude Include="src\Physic\CollisionListener.h" />
     <ClInclude Include="src\Physic\Physic.h" />
     <ClInclude Include="src\Shader\cShaderManager.h" />
     <ClInclude Include="src\Texture\C24BitBMPpixel.h" />
