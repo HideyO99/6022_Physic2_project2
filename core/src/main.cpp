@@ -726,15 +726,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     const float PI = 3.141f;
     if (key == GLFW_KEY_A)
     {
-        //g_player->yRotation += PI / 10;
-        
+        glm::vec3 dir = glm::normalize(glm::cross(g_upVector, (::g_cameraFront * glm::vec3(1, 0, 1))));
+        g_physic->UserForce(dir);
+       
         //::g_cameraEye.x -= CAMERA_MOVE_SPEED;
         //::g_cameraEye += (glm::normalize(glm::cross(g_upVector, (::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED)));
         
     }
     if (key == GLFW_KEY_D)
     {
-        //g_player->yRotation -= PI / 10;
+        glm::vec3 dir = -(glm::normalize(glm::cross(g_upVector, (::g_cameraFront * glm::vec3(1, 0, 1)))));
+        g_physic->UserForce(dir);
         //::g_cameraEye.x += CAMERA_MOVE_SPEED;
         //::g_cameraEye -= (glm::normalize(glm::cross(g_upVector, (::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED)));
     }
@@ -742,7 +744,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     {
         glm::vec3 dir = ::g_cameraFront * glm::vec3(1, 0, 1);
         g_physic->UserForce(dir);
-        //g_player->position += (g_player->direction );
         //::g_cameraEye.z -= CAMERA_MOVE_SPEED;
         //::g_cameraEye += ((::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED);
     }
@@ -750,17 +751,16 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     {
         glm::vec3 dir = -(::g_cameraFront * glm::vec3(1, 0, 1));
         g_physic->UserForce(dir);
-        //g_player->position -= (g_player->direction);
         //::g_cameraEye.z += CAMERA_MOVE_SPEED;
         //::g_cameraEye -= ((::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED);
     }
 
     if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
     {
-        ::g_cameraEye = glm::vec3(-5.5f, -3.4f, 15.0f);
-        ::g_cameraEye = glm::vec3(0.0, 100.0, 300.0f);
-        ::g_cameraTarget = glm::vec3(5.0f, 0.0f, 0.0f);
-        bIsWalkAround = !bIsWalkAround;
+        ////::g_cameraEye = glm::vec3(-5.5f, -3.4f, 15.0f);
+        ////::g_cameraEye = glm::vec3(0.0, 100.0, 300.0f);
+        ////::g_cameraTarget = glm::vec3(5.0f, 0.0f, 0.0f);
+        ////bIsWalkAround = !bIsWalkAround;
         //g_PlayAnimation = !g_PlayAnimation;
         //g_pAnimationManager->play(g_PlayAnimation);
         //if (g_PlayAnimation)
