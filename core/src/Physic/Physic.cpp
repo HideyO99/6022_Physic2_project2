@@ -143,7 +143,7 @@ void Physic::createPlane(cMeshObj* mGround, cMeshObj* mWallN, cMeshObj* mWallE, 
 	groundDesc.velocity = glm::vec3(0.f);
 	ground->PhysicBody = Factory->createRigidBody(groundDesc, groundShape);
 	World->addBody(ground->PhysicBody);
-/*
+
 	cObject* wallN = new cObject();
 	wallN->pMeshObj = mWallN;
 	wallN->pMeshObj->position = glm::vec3(0, 0, -50);
@@ -200,11 +200,16 @@ void Physic::createPlane(cMeshObj* mGround, cMeshObj* mWallN, cMeshObj* mWallE, 
 	wallS->PhysicBody = Factory->createRigidBody(wallSDesc, wallSShape);
 	World->addBody(wallS->PhysicBody);
 
-	wallN->pMeshObj->isWireframe = true;
-	wallE->pMeshObj->isWireframe = true;
-	wallW->pMeshObj->isWireframe = true;
-	wallS->pMeshObj->isWireframe = true;
-*/	
+	//wallN->pMeshObj->isWireframe = true;
+	//wallE->pMeshObj->isWireframe = true;
+	//wallW->pMeshObj->isWireframe = true;
+	//wallS->pMeshObj->isWireframe = true;
+
+	wallN->pMeshObj->color_RGBA = glm::vec4(0.f, 0.f, 0.f, 0.5f);
+	wallE->pMeshObj->color_RGBA = glm::vec4(0.f, 0.f, 0.f, 0.5f);
+	wallW->pMeshObj->color_RGBA = glm::vec4(0.f, 0.f, 0.f, 0.5f);
+	wallS->pMeshObj->color_RGBA = glm::vec4(0.f, 0.f, 0.f, 0.5f);
+	
 }
 #endif
 

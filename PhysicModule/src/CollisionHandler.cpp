@@ -101,7 +101,7 @@ bool CollisionHandler::SphereVsSphere(float dt, RigidBody* body1, iSphereShape* 
 
 bool CollisionHandler::SphereVsPlane(float dt, RigidBody* sphere, iSphereShape* sphereShape, RigidBody* plane, iPlaneShape* planeShape)
 {
-	bool bResult = testMovingSphereVsPlane(sphere->m_prevPosition, sphere->m_position, sphereShape->getRad(), planeShape->getNormal(), planeShape->getDotProd());
+	bool bResult = testMovingSphereVsPlane((sphere->m_prevPosition - plane->m_position), (sphere->m_position - plane->m_position), sphereShape->getRad(), planeShape->getNormal(), planeShape->getDotProd());
 	if (!bResult)
 	{
 		return false;
