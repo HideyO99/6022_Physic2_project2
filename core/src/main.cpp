@@ -24,6 +24,7 @@
 #include "time.h"
 #include "Physic/Physic.h"
 #include "Animation/AnimationManager.h"
+#include "FMOD/FmodManager.h"
 
 
 #define MODEL_LIST_XML          "asset/model.xml"
@@ -65,6 +66,8 @@ cTextureManager* g_pTextureManager = NULL;
 AnimationManager* g_pAnimationManager = NULL;
 
 Physic* g_physic = nullptr;
+cXML* xml = nullptr;
+FModManager* fmodmanager = nullptr;
 
 static void error_callback(int error, const char* description)
 {
@@ -88,6 +91,7 @@ void checkBorder();
 void createAnimation(cVAOManager* pVAOManager);
 
 void updateByFrameRate();
+bool FMOD_setup();
 
 int main(void)
 {
@@ -265,18 +269,9 @@ int main(void)
     g_physic->createBall(pVAOManager->findMeshObjAddr("ball4"), 4);
     g_physic->createBall(pVAOManager->findMeshObjAddr("ball5"), 5);
 
-    //cModelDrawInfo drawingInformation;
-   // result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball1"))->meshName.c_str(), drawingInformation);
-    
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy1"), &drawingInformation, cObject::TYPE_A );
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball2"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy2"), &drawingInformation, cObject::TYPE_A);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball3"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy3"), &drawingInformation, cObject::TYPE_B);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball4"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy4"), &drawingInformation, cObject::TYPE_B);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball5"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy5"), &drawingInformation, cObject::TYPE_C);
+    //FMOD
+    result = FMOD_setup();
+    g_physic->collisionListener->fmod = fmodmanager;
 
 
     //Animation
@@ -345,7 +340,10 @@ int main(void)
 
     delete pVAOManager;
     delete pShaderManager;
-    g_physic->~Physic();
+    delete fmodmanager;
+    delete xml;
+    delete g_physic;
+    //g_physic->~Physic();
 
     glfwTerminate();
     exit(EXIT_SUCCESS);
@@ -949,6 +947,45 @@ void updateByFrameRate()
 
     //    g_physicSys.gameUpdate();
     //}
+}
+
+bool FMOD_setup()
+{
+    bool result;
+    //init fmod
+    fmodmanager = new FModManager();
+    result = fmodmanager->Fmod_init(MAX_CHANNEL, FMOD_INIT_NORMAL);
+    if (!result)
+    {
+        return -2;
+    }
+
+    result = fmodmanager->create_channel(MASTER_CH);
+    result = fmodmanager->create_channel(FX1_CH);
+
+    if (!result)
+    {
+        return -3;
+    }
+
+    result = fmodmanager->set_channel_parent(FX1_CH, MASTER_CH);
+
+    if (!result)
+    {
+        return -4;
+    }
+
+    //read XML file
+    xml = new cXML();
+    xml->loadSoundFromXML();
+
+    result = fmodmanager->set_channel_vol(MASTER_CH, 0.5f);
+
+    result = fmodmanager->create_sound("fx1", xml->my_fx_path[0], FMOD_DEFAULT, false);
+
+
+
+    return result;
 }
 
 void createAnimation(cVAOManager* pVAOManager)
