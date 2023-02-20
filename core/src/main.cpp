@@ -796,82 +796,55 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         camAngle -= 0.1f;
         g_cameraEye.x = 90 * sin(camAngle);
         g_cameraEye.z = 90 * cos(camAngle);
+        g_cameraFront.x = -sin(camAngle);
+        g_cameraFront.z = -cos(camAngle);
     }
 
     if (key == GLFW_KEY_1 && action == GLFW_RELEASE)
     {
         g_physic->setActive(0);
-        //g_pAnimationManager->setSpeed(1.f);
-        //std::cout << "Speed 1X" << std::endl;
     }
 
     if (key == GLFW_KEY_2 && action == GLFW_RELEASE)
     {
         g_physic->setActive(1);
-        //g_pAnimationManager->setSpeed(2.f);
-        //std::cout << "Speed 2X" << std::endl;
     }
 
     if (key == GLFW_KEY_3 && action == GLFW_RELEASE)
     {
         g_physic->setActive(2);
-        //g_pAnimationManager->setSpeed(3.f);
-        //std::cout << "Speed 3X" << std::endl;
     }
 
     if (key == GLFW_KEY_4 && action == GLFW_RELEASE)
     {
         g_physic->setActive(3);
-        //g_pAnimationManager->setSpeed(4.f);
-        //std::cout << "Speed 4X" << std::endl;
     }
 
     if (key == GLFW_KEY_5 && action == GLFW_RELEASE)
     {
         g_physic->setActive(4);
-        //g_pAnimationManager->setSpeed(5.f);
-        //std::cout << "Speed 5X" << std::endl;
-    }
-
-    if (key == GLFW_KEY_R && action == GLFW_RELEASE)
-    {
-        g_pAnimationManager->setSpeed(-1.f);
-        std::cout << "Reverse 1X" << std::endl;
-    }
-
-    if (key == GLFW_KEY_C && action == GLFW_RELEASE)
-    {
-        g_pAnimationManager->continuePlay = !g_pAnimationManager->continuePlay;
-        if (g_pAnimationManager->continuePlay)
-        {
-            std::cout << "coninue play enable" << std::endl;
-        }
-        else
-        {
-            std::cout << "coninue play disable" << std::endl;
-        }
     }
 
     //checkBorder();
 }
 void checkBorder()
 {
-    if (::g_cameraEye.x < -48)
-    {
-        ::g_cameraEye.x = -48;
-    }
-    if (::g_cameraEye.x > 48)
-    {
-        ::g_cameraEye.x = 48;
-    }
-    if (::g_cameraEye.z < -48)
-    {
-        ::g_cameraEye.z = -48;
-    }
-    if (::g_cameraEye.z > 48)
-    {
-        ::g_cameraEye.z = 48;
-    }
+    //if (::g_cameraEye.x < -48)
+    //{
+    //    ::g_cameraEye.x = -48;
+    //}
+    //if (::g_cameraEye.x > 48)
+    //{
+    //    ::g_cameraEye.x = 48;
+    //}
+    //if (::g_cameraEye.z < -48)
+    //{
+    //    ::g_cameraEye.z = -48;
+    //}
+    //if (::g_cameraEye.z > 48)
+    //{
+    //    ::g_cameraEye.z = 48;
+    //}
 }
 
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
