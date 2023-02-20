@@ -8,6 +8,8 @@ Physic::Physic()
 
 Physic::~Physic()
 {
+	delete Factory;
+	delete World;
 }
 
 void Physic::init()
@@ -20,6 +22,54 @@ void Physic::init()
 #if !SHOWWALL
 	createPlane();
 #endif
+}
+
+void Physic::destroy()
+{
+
+	
+}
+
+void Physic::update(float dt)
+{
+	World->timeStep(dt);
+	for (int i = 0; i < m_ballList.size(); i++)
+	{
+		cObject* ball = m_ballList[i];
+		iRigidBody* rigidBody = dynamic_cast<iRigidBody*>(ball->PhysicBody);
+		if (ball->PhysicBody != nullptr)
+		{
+			ball->pMeshObj->position = rigidBody->getPosition();
+			ball->pMeshObj->rotation = glm::eulerAngles(rigidBody->getRotation());
+		}
+	}
+}
+
+void Physic::UserForce(glm::vec3 dir)
+{
+	for (int i = 0; i < m_ballList.size(); i++)
+	{
+		if (m_ballList[i]->isCTRL)
+		{
+			cObject* ball = m_ballList[i];
+			iRigidBody* rigidBody = dynamic_cast<iRigidBody*>(ball->PhysicBody);
+			if (ball->PhysicBody != nullptr)
+			{
+				rigidBody->addForce(dir * 5.f);
+			}
+		}
+	}
+}
+
+void Physic::setActive(int num)
+{
+	for (int i = 0; i < m_ballList.size(); i++)
+	{
+		m_ballList[i]->isCTRL = false;
+		m_ballList[i]->pMeshObj->color_RGBA = glm::vec4(0.f, 0.f, 0.f, 1.f);
+	}
+	m_ballList[num]->isCTRL = true;
+	m_ballList[num]->pMeshObj->color_RGBA = glm::vec4(1.f, 0.f, 0.f, 1.f);
 }
 
 #if !SHOWWALL
@@ -93,7 +143,7 @@ void Physic::createPlane(cMeshObj* mGround, cMeshObj* mWallN, cMeshObj* mWallE, 
 	groundDesc.velocity = glm::vec3(0.f);
 	ground->PhysicBody = Factory->createRigidBody(groundDesc, groundShape);
 	World->addBody(ground->PhysicBody);
-
+/*
 	cObject* wallN = new cObject();
 	wallN->pMeshObj = mWallN;
 	wallN->pMeshObj->position = glm::vec3(0, 0, -50);
@@ -154,13 +204,24 @@ void Physic::createPlane(cMeshObj* mGround, cMeshObj* mWallN, cMeshObj* mWallE, 
 	wallE->pMeshObj->isWireframe = true;
 	wallW->pMeshObj->isWireframe = true;
 	wallS->pMeshObj->isWireframe = true;
+*/	
 }
 #endif
 
-void Physic::createBall(cMeshObj* mOBJ)
+void Physic::createBall(cMeshObj* mOBJ,float size)
 {
 	cObject* ball = new cObject();
 	ball->pMeshObj = mOBJ;
-	ball->pMeshObj->position.y = 50;
-	ball->pMeshObj->scale = glm::vec3(100, 100, 1);
+	ball->pMeshObj->position.y = 10;
+	ball->pMeshObj->scale = glm::vec3(size);
+	ball->position = ball->pMeshObj->position;
+	iShape* ballShape = new iSphereShape(size);
+	iRigidBodyDesc desc;
+	desc.bStatic = false;
+	desc.mass = size;
+	desc.position = ball->position;
+	desc.velocity = glm::vec3(0.f);
+	ball->PhysicBody = Factory->createRigidBody(desc, ballShape);
+	World->addBody(ball->PhysicBody);
+	m_ballList.push_back(ball);
 }

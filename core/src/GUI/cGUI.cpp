@@ -82,7 +82,7 @@ bool cGUI::ImGUI_render()
                     {
                         ImGui::BeginGroup();
                         ImGui::DragFloat("X pos##", &pCurrentMeshObject->position.x, 0.1f);
-                        //ImGui::DragFloat("Y pos##", &pCurrentMeshObject->position.y, 0.1f);
+                        ImGui::DragFloat("Y pos##", &pCurrentMeshObject->position.y, 0.1f);
                         ImGui::DragFloat("Z pos##", &pCurrentMeshObject->position.z, 0.1f);
                         ImGui::EndGroup();
                         ImGui::NewLine();

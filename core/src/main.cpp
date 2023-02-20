@@ -258,17 +258,23 @@ int main(void)
         pVAOManager->findMeshObjAddr("wallW"),
         pVAOManager->findMeshObjAddr("wallS"));
 #endif
+    g_physic->createBall(pVAOManager->findMeshObjAddr("ball1"), 1);
+    g_physic->createBall(pVAOManager->findMeshObjAddr("ball2"), 2);
+    g_physic->createBall(pVAOManager->findMeshObjAddr("ball3"), 3);
+    g_physic->createBall(pVAOManager->findMeshObjAddr("ball4"), 4);
+    g_physic->createBall(pVAOManager->findMeshObjAddr("ball5"), 5);
 
-    cModelDrawInfo drawingInformation;
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball1"))->meshName.c_str(), drawingInformation);
+    //cModelDrawInfo drawingInformation;
+   // result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball1"))->meshName.c_str(), drawingInformation);
+    
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy1"), &drawingInformation, cObject::TYPE_A );
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball2"))->meshName.c_str(), drawingInformation);
+    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball2"))->meshName.c_str(), drawingInformation);
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy2"), &drawingInformation, cObject::TYPE_A);
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball3"))->meshName.c_str(), drawingInformation);
+    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball3"))->meshName.c_str(), drawingInformation);
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy3"), &drawingInformation, cObject::TYPE_B);
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball4"))->meshName.c_str(), drawingInformation);
+    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball4"))->meshName.c_str(), drawingInformation);
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy4"), &drawingInformation, cObject::TYPE_B);
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball5"))->meshName.c_str(), drawingInformation);
+    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball5"))->meshName.c_str(), drawingInformation);
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy5"), &drawingInformation, cObject::TYPE_C);
 
 
@@ -338,6 +344,7 @@ int main(void)
 
     delete pVAOManager;
     delete pShaderManager;
+    g_physic->~Physic();
 
     glfwTerminate();
     exit(EXIT_SUCCESS);
@@ -714,59 +721,56 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     //move camera
     // AWSD AD-Left, Right
     //      WS-Forward, Back
-    //const float CAMERA_MOVE_SPEED = 5.f;
+    const float CAMERA_MOVE_SPEED = 5.f;
     const float MOVE_SPEED = 5.f;
     const float PI = 3.141f;
-    //if (key == GLFW_KEY_A)
-    //{
-    //    g_player->yRotation += PI / 10;
-    //    
-    //    //::g_cameraEye.x -= CAMERA_MOVE_SPEED;
-    //    //::g_cameraEye += (glm::normalize(glm::cross(g_upVector, (::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED)));
-    //    
-    //}
-    //if (key == GLFW_KEY_D)
-    //{
-    //    g_player->yRotation -= PI / 10;
-    //    //::g_cameraEye.x += CAMERA_MOVE_SPEED;
-    //    //::g_cameraEye -= (glm::normalize(glm::cross(g_upVector, (::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED)));
-    //}
-    //if (key == GLFW_KEY_W)
-    //{
-    //    g_player->position += (g_player->direction );
-    //    //::g_cameraEye.z -= CAMERA_MOVE_SPEED;
-    //    //::g_cameraEye += ((::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED);
-    //}
-    //if (key == GLFW_KEY_S)
-    //{
-    //    g_player->position -= (g_player->direction);
-    //    //::g_cameraEye.z += CAMERA_MOVE_SPEED;
-    //    //::g_cameraEye -= ((::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED);
-    //}
-    //if (key == GLFW_KEY_Q)
-    //{
-    //    //::g_cameraEye.y -= CAMERA_MOVE_SPEED;
-    //}
-    //if (key == GLFW_KEY_E)
-    //{
-    //    //::g_cameraEye.y += CAMERA_MOVE_SPEED;
-    //}
+    if (key == GLFW_KEY_A)
+    {
+        //g_player->yRotation += PI / 10;
+        
+        //::g_cameraEye.x -= CAMERA_MOVE_SPEED;
+        //::g_cameraEye += (glm::normalize(glm::cross(g_upVector, (::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED)));
+        
+    }
+    if (key == GLFW_KEY_D)
+    {
+        //g_player->yRotation -= PI / 10;
+        //::g_cameraEye.x += CAMERA_MOVE_SPEED;
+        //::g_cameraEye -= (glm::normalize(glm::cross(g_upVector, (::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED)));
+    }
+    if (key == GLFW_KEY_W)
+    {
+        glm::vec3 dir = ::g_cameraFront * glm::vec3(1, 0, 1);
+        g_physic->UserForce(dir);
+        //g_player->position += (g_player->direction );
+        //::g_cameraEye.z -= CAMERA_MOVE_SPEED;
+        //::g_cameraEye += ((::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED);
+    }
+    if (key == GLFW_KEY_S)
+    {
+        glm::vec3 dir = -(::g_cameraFront * glm::vec3(1, 0, 1));
+        g_physic->UserForce(dir);
+        //g_player->position -= (g_player->direction);
+        //::g_cameraEye.z += CAMERA_MOVE_SPEED;
+        //::g_cameraEye -= ((::g_cameraFront * glm::vec3(1, 0, 1)) * CAMERA_MOVE_SPEED);
+    }
+
     if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
     {
-        //::g_cameraEye = glm::vec3(-5.5f, -3.4f, 15.0f);
-        //::g_cameraEye = glm::vec3(0.0, 100.0, 300.0f);
-        //::g_cameraTarget = glm::vec3(5.0f, 0.0f, 0.0f);
-        //bIsWalkAround = !bIsWalkAround;
-        g_PlayAnimation = !g_PlayAnimation;
-        g_pAnimationManager->play(g_PlayAnimation);
-        if (g_PlayAnimation)
-        {
-            std::cout << "Play Animation" << std::endl;
-        }
-        else
-        {
-            std::cout << "Pause Animation" << std::endl;
-        }
+        ::g_cameraEye = glm::vec3(-5.5f, -3.4f, 15.0f);
+        ::g_cameraEye = glm::vec3(0.0, 100.0, 300.0f);
+        ::g_cameraTarget = glm::vec3(5.0f, 0.0f, 0.0f);
+        bIsWalkAround = !bIsWalkAround;
+        //g_PlayAnimation = !g_PlayAnimation;
+        //g_pAnimationManager->play(g_PlayAnimation);
+        //if (g_PlayAnimation)
+        //{
+        //    std::cout << "Play Animation" << std::endl;
+        //}
+        //else
+        //{
+        //    std::cout << "Pause Animation" << std::endl;
+        //}
     }
 
     if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE)
@@ -791,32 +795,37 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
     if (key == GLFW_KEY_1 && action == GLFW_RELEASE)
     {
-        g_pAnimationManager->setSpeed(1.f);
-        std::cout << "Speed 1X" << std::endl;
+        g_physic->setActive(0);
+        //g_pAnimationManager->setSpeed(1.f);
+        //std::cout << "Speed 1X" << std::endl;
     }
 
     if (key == GLFW_KEY_2 && action == GLFW_RELEASE)
     {
-        g_pAnimationManager->setSpeed(2.f);
-        std::cout << "Speed 2X" << std::endl;
+        g_physic->setActive(1);
+        //g_pAnimationManager->setSpeed(2.f);
+        //std::cout << "Speed 2X" << std::endl;
     }
 
     if (key == GLFW_KEY_3 && action == GLFW_RELEASE)
     {
-        g_pAnimationManager->setSpeed(3.f);
-        std::cout << "Speed 3X" << std::endl;
+        g_physic->setActive(2);
+        //g_pAnimationManager->setSpeed(3.f);
+        //std::cout << "Speed 3X" << std::endl;
     }
 
     if (key == GLFW_KEY_4 && action == GLFW_RELEASE)
     {
-        g_pAnimationManager->setSpeed(4.f);
-        std::cout << "Speed 4X" << std::endl;
+        g_physic->setActive(3);
+        //g_pAnimationManager->setSpeed(4.f);
+        //std::cout << "Speed 4X" << std::endl;
     }
 
     if (key == GLFW_KEY_5 && action == GLFW_RELEASE)
     {
-        g_pAnimationManager->setSpeed(5.f);
-        std::cout << "Speed 5X" << std::endl;
+        g_physic->setActive(4);
+        //g_pAnimationManager->setSpeed(5.f);
+        //std::cout << "Speed 5X" << std::endl;
     }
 
     if (key == GLFW_KEY_R && action == GLFW_RELEASE)
@@ -941,7 +950,7 @@ void updateByFrameRate()
         double elapsedTime = g_CurrentTime - g_LastCall;
         g_LastCall = g_CurrentTime;
 
-        //g_physic->update(elapsedTime);
+        g_physic->update(elapsedTime);
         // 
         //std::map<std::string, cObject*>::iterator obj_it = g_physicSys.mapOBJ.find("Player");
         //obj_it->second->position = ::g_cameraEye;

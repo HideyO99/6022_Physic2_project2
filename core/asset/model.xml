@@ -498,10 +498,10 @@
 
 	<model name="ball">asset/model/UV_Sphere_Cylindrical_UIV_Projection_bullet.ply
 		<modelInstance>ball1<posX>0</posX><posZ>0</posZ><rotateY>0</rotateY></modelInstance>
-		<modelInstance>ball2<posX>0</posX><posZ>0</posZ><rotateY>0</rotateY></modelInstance>
-		<modelInstance>ball3<posX>0</posX><posZ>0</posZ><rotateY>0</rotateY></modelInstance>
-		<modelInstance>ball4<posX>0</posX><posZ>0</posZ><rotateY>0</rotateY></modelInstance>
-		<modelInstance>ball5<posX>0</posX><posZ>0</posZ><rotateY>0</rotateY></modelInstance>
+		<modelInstance>ball2<posX>0</posX><posZ>25</posZ><rotateY>0</rotateY></modelInstance>
+		<modelInstance>ball3<posX>25</posX><posZ>0</posZ><rotateY>0</rotateY></modelInstance>
+		<modelInstance>ball4<posX>0</posX><posZ>-25</posZ><rotateY>0</rotateY></modelInstance>
+		<modelInstance>ball5<posX>-25</posX><posZ>0</posZ><rotateY>0</rotateY></modelInstance>
 	</model>
 	<model name="plane">asset/model/plane.ply
 		<modelInstance>ground<posX>0</posX><posZ>0</posZ><rotateY>0</rotateY></modelInstance>
@@ -513,7 +513,7 @@
 
 </PLYMODEL>
 <EYE_LOCATION>
-	<x>90</x>
+	<x>0</x>
 	<y>100</y>
-	<z>0</z>
+	<z>90</z>
 </EYE_LOCATION>

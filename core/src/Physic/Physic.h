@@ -21,6 +21,8 @@ public:
 	void init();
 	void destroy();
 	void update(float dt);
+	void UserForce(glm::vec3 dir);
+	void setActive(int num);
 
 //private:
 #if SHOWWALL
@@ -28,10 +30,11 @@ public:
 #else
 	void createPlane();
 #endif
-	void createBall(cMeshObj* mOBJ);
+	void createBall(cMeshObj* mOBJ,float size);
 	
 	
 	iPhysicFactory* Factory;
 	iPhysicWorld* World;
+	std::vector<cObject*> m_ballList;
 };
 
