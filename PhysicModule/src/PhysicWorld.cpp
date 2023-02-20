@@ -112,6 +112,7 @@ void PhysicWorld::timeStep(float dt)
 		CollidingBody& collisionBody = collision[i];
 		//play sound here
 		m_collisionListener->notifyCollision(collisionBody.bodyA, collisionBody.bodyB);
+		//collision.erase(collision.begin()+i);
 	}
 
 	//step 2 - update velocity

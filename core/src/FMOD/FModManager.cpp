@@ -51,6 +51,11 @@ void FModManager::shutdown()
 	}
 }
 
+void FModManager::update()
+{
+	system_->update();
+}
+
 bool FModManager::create_channel(const std::string& CH_name)
 {
 	FMOD::ChannelGroup* channel_group;
