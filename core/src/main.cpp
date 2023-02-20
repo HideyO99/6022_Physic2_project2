@@ -335,6 +335,7 @@ int main(void)
     }
 
     gui_->ImGUI_shutdown();
+    fmodmanager->shutdown();
 
     glfwDestroyWindow(window);
 
@@ -927,6 +928,7 @@ void updateByFrameRate()
         g_LastCall = g_CurrentTime;
 
         g_physic->update(elapsedTime);
+        fmodmanager->update();
         // 
         //std::map<std::string, cObject*>::iterator obj_it = g_physicSys.mapOBJ.find("Player");
         //obj_it->second->position = ::g_cameraEye;
@@ -954,6 +956,7 @@ bool FMOD_setup()
     bool result;
     //init fmod
     fmodmanager = new FModManager();
+
     result = fmodmanager->Fmod_init(MAX_CHANNEL, FMOD_INIT_NORMAL);
     if (!result)
     {
@@ -981,7 +984,7 @@ bool FMOD_setup()
 
     result = fmodmanager->set_channel_vol(MASTER_CH, 0.5f);
 
-    result = fmodmanager->create_sound("fx1", xml->my_fx_path[0], FMOD_DEFAULT, false);
+    result = fmodmanager->create_sound("fx1", xml->my_fx_path[0], FMOD_DEFAULT, true);
 
 
 

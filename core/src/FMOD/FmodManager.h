@@ -33,6 +33,7 @@ public:
 
 	bool Fmod_init(const int num_channel, const int system_flag);
 	void shutdown();
+	void update();
 
 	bool create_channel(const std::string& CH_name);
 	bool find_channel_group(const std::string& CH_name, CHgroup** channel_group);
