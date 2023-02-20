@@ -71,11 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)dev\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)dev\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)dev\inc;$(SolutionDir)PhysicInterface\src;$(SolutionDir)PhysicModule\src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)dev\lib\$(Configuration);$(SolutionDir)x64\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)dev\inc;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dev\inc;$(SolutionDir)PhysicInterface\src;$(SolutionDir)PhysicModule\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dev\lib\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -154,6 +154,8 @@
     <ClCompile Include="src\Light\cLightManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MeshObj\cMeshObj.cpp" />
+    <ClCompile Include="src\Physic\cObject.cpp" />
+    <ClCompile Include="src\Physic\Physic.cpp" />
     <ClCompile Include="src\Shader\cShader.cpp" />
     <ClCompile Include="src\Shader\cShaderManager.cpp" />
     <ClCompile Include="src\Shader\cShaderProgram.cpp" />
@@ -184,6 +186,8 @@
     <ClInclude Include="src\Light\cLight.h" />
     <ClInclude Include="src\Light\cLightManager.h" />
     <ClInclude Include="src\MeshObj\cMeshObj.h" />
+    <ClInclude Include="src\Physic\cObject.h" />
+    <ClInclude Include="src\Physic\Physic.h" />
     <ClInclude Include="src\Shader\cShaderManager.h" />
     <ClInclude Include="src\Texture\C24BitBMPpixel.h" />
     <ClInclude Include="src\Texture\cTextureFromBMP.h" />

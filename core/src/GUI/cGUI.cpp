@@ -75,7 +75,7 @@ bool cGUI::ImGUI_render()
             for (int i = 0; i < pVecInstanceMeshObj->size(); i++)
             {
                 cMeshObj* pCurrentMeshObject = pVecInstanceMeshObj->at(i);
-                if ((pCurrentMeshObject->meshName == "enemy") || (pCurrentMeshObject->meshName == "player"))
+                if ((pCurrentMeshObject->meshName == "ball") || (pCurrentMeshObject->meshName == "plane"))
                 {
                     //ImGui::Text(pCurrentMeshObject->instanceName.c_str());
                     if (ImGui::TreeNode((void*)(intptr_t)i, pCurrentMeshObject->instanceName.c_str()))
@@ -104,9 +104,9 @@ bool cGUI::ImGUI_render()
                         //ImGui::DragFloat("powerB ##", &pCurrentMeshObject->specular_colour_and_power.b, 0.01f);
                         //ImGui::EndGroup();
                         ImGui::NewLine();
-                        //ImGui::DragFloat("scaleX##", &pCurrentMeshObject->scale.x, 0.1f, 0.f, 100.f);
-                        //ImGui::DragFloat("scaleY##", &pCurrentMeshObject->scale.y, 0.1f, 0.f, 100.f);
-                        //ImGui::DragFloat("scaleZ##", &pCurrentMeshObject->scale.z, 0.1f, 0.f, 100.f);
+                        ImGui::DragFloat("scaleX##", &pCurrentMeshObject->scale.x, 0.1f, 0.f, 100.f);
+                        ImGui::DragFloat("scaleY##", &pCurrentMeshObject->scale.y, 0.1f, 0.f, 100.f);
+                        ImGui::DragFloat("scaleZ##", &pCurrentMeshObject->scale.z, 0.1f, 0.f, 100.f);
                         ImGui::Checkbox("wireframe##", &pCurrentMeshObject->isWireframe);
                         ImGui::SameLine();
                         ImGui::Checkbox("visible##", &pCurrentMeshObject->isVisible);

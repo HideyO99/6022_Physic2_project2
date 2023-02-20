@@ -2,8 +2,6 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-
-
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp> // glm::vec3        (x,y,z)
 #include <glm/vec4.hpp> // glm::vec4        (x,y,z,w)
@@ -24,7 +22,7 @@
 #include "GUI/cGUI.h"
 #include "Texture/cTextureManager.h"
 #include "time.h"
-//#include "Physic/cPhysicSystem.h"
+#include "Physic/Physic.h"
 #include "Animation/AnimationManager.h"
 
 
@@ -65,6 +63,7 @@ cTextureManager* g_pTextureManager = NULL;
 
 AnimationManager* g_pAnimationManager = NULL;
 
+Physic* g_physic = nullptr;
 
 static void error_callback(int error, const char* description)
 {
@@ -242,74 +241,40 @@ int main(void)
     result = pVAOManager->setTexture("terrain", "photos_2018_7_4_fst_water-blue.bmp", 0);
     result = pVAOManager->setSkyBoxFlag("skybox",true);
 
-    result = pVAOManager->setInstanceObjScale("bullet", 0.1);
-    result = pVAOManager->setInstanceObjRGB("bullet", glm::vec4(0.f, 0.f, 1.f, 1.f));
-    result = pVAOManager->setInstanceObjWireframe("Player", false);
-
-
-    result = pVAOManager->setInstanceObjWireframe("obstacle1", true);
-    result = pVAOManager->setInstanceObjWireframe("obstacle2", true);
-    result = pVAOManager->setInstanceObjWireframe("obstacle3", true);
-    result = pVAOManager->setInstanceObjWireframe("obstacle4", true);
-    result = pVAOManager->setInstanceObjWireframe("obstacle5", true);
+    //result = pVAOManager->setInstanceObjScale("bullet", 0.1);
+    //result = pVAOManager->setInstanceObjRGB("bullet", glm::vec4(0.f, 0.f, 1.f, 1.f));
+    //result = pVAOManager->setInstanceObjWireframe("Player", false);
 
     light0Setup(); // Dir light
-    //light1Setup(pVAOManager);// torch
-    //light2Setup(pVAOManager); //beholder eye
-    //light3Setup();
-    //light4Setup();
+
+    //Physic2 project 1 section
+    g_physic = new Physic();
+    g_physic->init();
+
+#if SHOWWALL
+    g_physic->createPlane(pVAOManager->findMeshObjAddr("ground"),
+        pVAOManager->findMeshObjAddr("wallN"),
+        pVAOManager->findMeshObjAddr("wallE"),
+        pVAOManager->findMeshObjAddr("wallW"),
+        pVAOManager->findMeshObjAddr("wallS"));
+#endif
 
     cModelDrawInfo drawingInformation;
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy1"))->meshName.c_str(), drawingInformation);
+    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball1"))->meshName.c_str(), drawingInformation);
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy1"), &drawingInformation, cObject::TYPE_A );
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy2"))->meshName.c_str(), drawingInformation);
+    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball2"))->meshName.c_str(), drawingInformation);
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy2"), &drawingInformation, cObject::TYPE_A);
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy3"))->meshName.c_str(), drawingInformation);
+    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball3"))->meshName.c_str(), drawingInformation);
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy3"), &drawingInformation, cObject::TYPE_B);
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy4"))->meshName.c_str(), drawingInformation);
+    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball4"))->meshName.c_str(), drawingInformation);
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy4"), &drawingInformation, cObject::TYPE_B);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy5"))->meshName.c_str(), drawingInformation);
+    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("ball5"))->meshName.c_str(), drawingInformation);
     //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy5"), &drawingInformation, cObject::TYPE_C);
 
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy6"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy6"), &drawingInformation, cObject::TYPE_A);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy7"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy7"), &drawingInformation, cObject::TYPE_A);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy8"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy8"), &drawingInformation, cObject::TYPE_B);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy9"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy9"), &drawingInformation, cObject::TYPE_B);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("enemy10"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("enemy10"), &drawingInformation, cObject::TYPE_C);
-
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("bullet"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("bullet"), &drawingInformation);
-    result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("Player"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("Player"), &drawingInformation);
-    //std::map<std::string, cObject*>::iterator playerObj = g_physicSys.mapOBJ.find("Player");
-   // g_player = playerObj->second;
-    
-
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("obstacle1"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("obstacle1"), &drawingInformation);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("obstacle2"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("obstacle2"), &drawingInformation);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("obstacle3"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("obstacle3"), &drawingInformation);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("obstacle4"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("obstacle4"), &drawingInformation);
-    //result = pVAOManager->FindDrawInfo((pVAOManager->findMeshObjAddr("obstacle5"))->meshName.c_str(), drawingInformation);
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("obstacle5"), &drawingInformation);
-    //g_physicSys.createEnvironment(drawingInformation);
-    //g_physicSys.boundingBox.pMeshObj = pVAOManager->findMeshObjAddr("box1");
-    //g_physicSys.boundingBox.pDrawInfo = pVAOManager->findDrawInfoAddr("box1");
-    //g_physicSys.createObject(pVAOManager->findMeshObjAddr("P51"), pVAOManager->findDrawInfoAddr("P51"));
-
-    //g_physicSys.gameUpdate();
 
     //Animation
-    ::g_pAnimationManager = new AnimationManager();
-    createAnimation(pVAOManager);
+    //::g_pAnimationManager = new AnimationManager();
+    //createAnimation(pVAOManager);
     
     cTime::update();
 
@@ -976,6 +941,8 @@ void updateByFrameRate()
         double elapsedTime = g_CurrentTime - g_LastCall;
         g_LastCall = g_CurrentTime;
 
+        //g_physic->update(elapsedTime);
+        // 
         //std::map<std::string, cObject*>::iterator obj_it = g_physicSys.mapOBJ.find("Player");
         //obj_it->second->position = ::g_cameraEye;
 
@@ -985,7 +952,7 @@ void updateByFrameRate()
 
         //obj_it->second->update();
 
-        g_pAnimationManager->AnimationUpdate(g_PlayAnimation, elapsedTime);
+        //g_pAnimationManager->AnimationUpdate(g_PlayAnimation, elapsedTime);
         //g_physicSys.updateSystem(elapsedTime);
     }
     //if (g_CurrentTime >= g_LastCall5s + SEC_UPDATE)
