@@ -35,6 +35,7 @@ glm::vec3 g_cameraEye = glm::vec3(0.0, 5.0, 0.0f);
 glm::vec3 g_cameraTarget = glm::vec3(1.0f, 1.0f, 1.0f);
 glm::vec3 g_upVector = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 g_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+float camAngle = 0.f;
 bool bIsWalkAround = false;
 bool firstMouse = true;
 float yaw = -90.0f;	
@@ -772,25 +773,29 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         //    std::cout << "Pause Animation" << std::endl;
         //}
     }
-
-    if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE)
+    if (key == GLFW_KEY_UP)//&& action == GLFW_RELEASE)
     {
-        g_pAnimationManager->getSequence(g_AnimationSeq);
-        g_AnimationSeq++;
-        g_pAnimationManager->setSequence(g_AnimationSeq);
-        std::cout << "Sequence " << g_AnimationSeq + 1 << std::endl;
-
+        fov -= 0.5;
+    }
+    if (key == GLFW_KEY_DOWN)//&& action == GLFW_RELEASE)
+    {
+        fov += 0.5;
     }
 
-    if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE)
+    if (key == GLFW_KEY_RIGHT )//&& action == GLFW_RELEASE)
     {
-        g_pAnimationManager->getSequence(g_AnimationSeq);
-        if (g_AnimationSeq > 0)
-        {
-            g_AnimationSeq--;
-        }
-        g_pAnimationManager->setSequence(g_AnimationSeq);
-        std::cout << "Sequence " << g_AnimationSeq + 1 << std::endl;
+        camAngle += 0.1f;
+        g_cameraEye.x = 90 * sin(camAngle);
+        g_cameraEye.z = 90 * cos(camAngle);
+        g_cameraFront.x = -sin(camAngle);
+        g_cameraFront.z = -cos(camAngle);
+    }
+
+    if (key == GLFW_KEY_LEFT )//&& action == GLFW_RELEASE)
+    {
+        camAngle -= 0.1f;
+        g_cameraEye.x = 90 * sin(camAngle);
+        g_cameraEye.z = 90 * cos(camAngle);
     }
 
     if (key == GLFW_KEY_1 && action == GLFW_RELEASE)
