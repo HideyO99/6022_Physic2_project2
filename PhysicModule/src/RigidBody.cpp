@@ -134,10 +134,10 @@ void RigidBody::verletStep1(float dt)
 	// s = ut + 1/2(at^2)
 	m_position += (m_velocity + (0.5f * m_acceleration * dt)) * dt; 
 	
-	if (m_position.y < 0.f)
-	{
-		m_position.y = 1.f;
-	}
+	//if (m_position.y < 0.f)
+	//{
+	//	m_position.y = 1.f;
+	//}
 
 	// theta = omega*t + 1/2(alpha*t^2) angular rotation
 	Vec3 theta = (m_angularVelocity + (0.5f * m_angularAcceleration * dt)) * dt;
@@ -180,6 +180,14 @@ void RigidBody::addDamping(float dt)
 	m_angularVelocity *= pow((1.f - m_angularDamping), dt);
 
 	//todo
+	if (glm::length(m_velocity) < 0.001f)
+	{
+		m_velocity = glm::vec3(0.f);
+	}
+	if (glm::length(m_angularVelocity) < 0.001f)
+	{
+		m_angularVelocity = glm::vec3(0.f);
+	}
 }
 
 void RigidBody::setRenderPosition(Vec3* pos)

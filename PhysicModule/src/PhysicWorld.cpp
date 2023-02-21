@@ -107,11 +107,14 @@ void PhysicWorld::timeStep(float dt)
 	std::vector<CollidingBody> collision;
 	m_collisionHandler->collide(dt, m_body, collision);
 
-	for (int i = 0; i < collision.size(); i++)
+	if (collision.size() > 0)
 	{
-		CollidingBody& collisionBody = collision[i];
-		//play sound here
-		//m_collisionListener->notifyCollision(collisionBody.bodyA, collisionBody.bodyB);
+		for (int i = 0; i < collision.size(); i++)
+		{
+			CollidingBody& collisionBody = collision[i];
+			//play sound here
+			m_collisionListener->notifyCollision(collisionBody.bodyA, collisionBody.bodyB);
+		}
 	}
 
 	//step 2 - update velocity
