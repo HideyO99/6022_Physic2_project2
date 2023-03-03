@@ -3,6 +3,7 @@
 #include <iPhysicWorld.h>
 
 #include "cObject.h"
+#include "CollisionListener.h"
 
 #define GDP_Physics
 #if defined GDP_Physics
@@ -32,7 +33,7 @@ public:
 #endif
 	void createBall(cMeshObj* mOBJ,float size);
 	
-	
+	CollisionListener* collisionListener;
 	iPhysicFactory* Factory;
 	iPhysicWorld* World;
 	std::vector<cObject*> m_ballList;

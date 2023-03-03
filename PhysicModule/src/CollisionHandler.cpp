@@ -172,10 +172,10 @@ bool CollisionHandler::SphereVsPlane(float dt, RigidBody* sphere, iSphereShape* 
 			{
 				sphere->m_velocity -= planeShape->getNormal() * VDotNorm;
 			}
-			if (sphere->m_position.y < 0.f)
-			{
-				sphere->m_position.y = 1.f;
-			}
+			//if (sphere->m_position.y < 0.f)
+			//{
+			//	sphere->m_position.y = 1.f;
+			//}
 		}
 		else
 		{
