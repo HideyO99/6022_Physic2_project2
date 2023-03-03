@@ -138,6 +138,9 @@
     <ClCompile Include="src\Physic\CollisionListener.cpp">
       <Filter>Physic</Filter>
     </ClCompile>
+    <ClCompile Include="src\FMOD\FModManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\globalOpenGL.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="src\Physic\CollisionListener.h">
       <Filter>Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FMOD\FmodManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

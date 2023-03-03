@@ -144,14 +144,14 @@ int main(void)
 
     srand((unsigned)time(NULL));
 
-    //initialize imgui
-    //cGUI* gui_ = new cGUI(&g_cameraEye,&g_cameraTarget);
-    //result = gui_->ImGUI_init(window);
-    //if (!result)
-    //{
-    //    glfwTerminate();
-    //    exit(EXIT_FAILURE);
-    //}
+    /*initialize imgui*/
+    cGUI* gui_ = new cGUI(&g_cameraEye,&g_cameraTarget);
+    result = gui_->ImGUI_init(window);
+    if (!result)
+    {
+        glfwTerminate();
+        exit(EXIT_FAILURE);
+    }
     
     //create shader program
     cShaderManager* pShaderManager = new cShaderManager();
@@ -188,7 +188,7 @@ int main(void)
     ::g_pTheLightManager->loadLightUniformLocation(shaderID);
     for (size_t i = 0; i < MAX_LIGHT_SOURCE; i++)
     {
-        //gui_->pLight[i] = ::g_pTheLightManager->plight[i];
+        gui_->pLight[i] = ::g_pTheLightManager->plight[i];
     }
     //load model
     cVAOManager* pVAOManager = new cVAOManager();
@@ -209,7 +209,7 @@ int main(void)
     ::g_cameraEye = pVAOManager->cameraEyeFromXML;
 
     //gui_->pMapInstanceNametoMeshObj = &pVAOManager->mapInstanceNametoMeshObj;
-    //gui_->pVecInstanceMeshObj = &pVAOManager->pVecInstanceMeshObj;
+    gui_->pVecInstanceMeshObj = &pVAOManager->pVecInstanceMeshObj;
 
     //load texture
     ::g_pTextureManager = new cTextureManager();
@@ -325,7 +325,7 @@ int main(void)
 
 
 
-        //gui_->ImGUICreateFrame();
+        gui_->ImGUICreateFrame();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -334,7 +334,7 @@ int main(void)
         //std::stringstream 
     }
 
-    //gui_->ImGUI_shutdown();
+    gui_->ImGUI_shutdown();
     fmodmanager->shutdown();
 
     glfwDestroyWindow(window);
