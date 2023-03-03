@@ -76,7 +76,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)dev\inc;$(SolutionDir)PhysicInterface\src;$(SolutionDir)PhysicModule\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)dev\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)dev\lib\$(Configuration);$(SolutionDir)x64\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
