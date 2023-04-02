@@ -1,6 +1,8 @@
 #pragma once
 #include <iRigidBody.h>
 #include <iRigidBodyDesc.h>
+#include <Physx/PxPhysics.h>
+#include <Physx/PxPhysicsAPI.h>
 
 
 class RigidBody : public iRigidBody
@@ -45,8 +47,11 @@ public:
 
 	friend class CollisionHandler;
 
-private:
+	physx::PxShape* pShape = nullptr;
+	physx::PxRigidActor* pActor = nullptr;
+
 	float m_mass;
+private:
 	float m_inverseMass;
 	float m_friction;
 	float m_restitution;

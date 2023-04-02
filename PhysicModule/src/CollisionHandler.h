@@ -4,6 +4,8 @@
 #include "CollidingBody.h"
 #include <iPlaneShape.h>
 #include <iSphereShape.h>
+#include <iBoxShape.h>
+#include <iCylinderShape.h>
 
 #define ELASTIC_COEF 0.4f
 #define INELASTIC_COEF (1.f - ELASTIC_COEF)
