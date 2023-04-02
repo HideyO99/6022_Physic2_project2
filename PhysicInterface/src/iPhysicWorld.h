@@ -15,6 +15,7 @@ public:
 	virtual void timeStep(float dt) = 0;
 
 	virtual void addToCollisionListener(iCollisionListener* listener) = 0;
+	virtual void resetWorld() = 0;
 
 
 private:
