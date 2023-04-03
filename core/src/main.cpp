@@ -1208,6 +1208,7 @@ void createPhysXscene(cVAOManager* pVAOManager)
             pVAOManager->setTexture(instantName, "Dungeons_2_Texture_01_A.bmp", 0);
             pVAOManager->setTextureRatio(instantName, 0, 1);
             pVAOManager->setInstanceObjLighting(instantName, false);
+            g_physic->createCylinder(pVAOManager->findMeshObjAddr(instantName), pos, glm::vec3(1));
         }
     }
     g_physic->createBall(pVAOManager->findMeshObjAddr("ball1"), 1);

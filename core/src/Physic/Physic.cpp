@@ -272,3 +272,20 @@ void Physic::createFloor(cMeshObj* mGround)
 	World->addBody(floor->PhysicBody);
 }
 
+void Physic::createCylinder(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size)
+{
+	cObject* cylinder = new cObject();
+	cylinder->pMeshObj = mOBJ;
+	//cylinder->pMeshObj->position = pos;
+	cylinder->position = cylinder->pMeshObj->position;
+	glm::vec3 halfExtent = glm::vec3(size.x / 2, size.y / 2, size.z / 2);
+	iShape* cylinderShape = new iCylinderShape(halfExtent);
+	iRigidBodyDesc desc;
+	desc.bStatic = false;
+	desc.mass = 1;
+	desc.position = cylinder->position;
+	desc.velocity = glm::vec3(0.f);
+	cylinder->PhysicBody = Factory->createRigidBody(desc, cylinderShape);
+	World->addBody(cylinder->PhysicBody);
+}
+
