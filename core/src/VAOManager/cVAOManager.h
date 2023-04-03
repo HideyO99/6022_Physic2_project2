@@ -52,6 +52,7 @@ public:
 	bool setDungeonTexture(std::string meshObjName, std::string textureFile);
 
 	bool setTorchTexture(std::string meshObjName, std::string textureFile, std::string markTextureFile);
+	void createOBJ(std::string meshObjName, std::string InstantName,glm::vec3 pos, glm::vec3 size);
 
 	std::map<std::string, cMeshObj*> mapInstanceNametoMeshObj;
 	std::vector<cMeshObj*> pVecInstanceMeshObj;

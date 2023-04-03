@@ -7,7 +7,7 @@
 #include <map>
 #include "../XML/cXML.h"
 
-#define MAX_CHANNEL 255
+#define MAX_CHANNEL 5
 #define MASTER_CH	"Master"
 #define BGM_CH1		"BGM1"
 #define BGM_CH2		"BGM2"

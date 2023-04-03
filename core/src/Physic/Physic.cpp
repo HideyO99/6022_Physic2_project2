@@ -232,3 +232,43 @@ void Physic::createBall(cMeshObj* mOBJ,float size)
 	World->addBody(ball->PhysicBody);
 	m_ballList.push_back(ball);
 }
+
+void Physic::createBox(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size)
+{
+	cObject* box = new cObject();
+
+	box->pMeshObj = mOBJ;
+	box->pMeshObj->position = pos;
+	//box->pMeshObj->scale = size;
+	box->position = box->pMeshObj->position;
+	glm::vec3 halfExtent = glm::vec3(size.x / 2, size.y / 2, size.z / 2);
+	iShape* boxShape = new iBoxShape(halfExtent);
+	iRigidBodyDesc desc;
+	desc.bStatic = false;
+	desc.mass = 1;
+	desc.position = box->position;
+	desc.velocity = glm::vec3(0.f);
+	box->PhysicBody = Factory->createRigidBody(desc, boxShape);
+	World->addBody(box->PhysicBody);
+	//m_ballList.push_back(box);
+}
+
+void Physic::createFloor(cMeshObj* mGround)
+{
+	float size = 32.f;
+	cObject* floor = new cObject();
+	floor->pMeshObj = mGround;
+	//floor->pMeshObj->position = glm::vec3(0.f);
+	//floor->pMeshObj->scale = glm::vec3(size);
+	floor->position = floor->pMeshObj->position;
+	glm::vec3 halfExtent = glm::vec3(size / 2, 1, size / 2);
+	iShape* boxShape = new iBoxShape(halfExtent);
+	iRigidBodyDesc desc;
+	desc.bStatic = true;
+	desc.mass = 0;
+	desc.position = floor->position;
+	desc.velocity = glm::vec3(0.f);
+	floor->PhysicBody = Factory->createRigidBody(desc, boxShape);
+	World->addBody(floor->PhysicBody);
+}
+

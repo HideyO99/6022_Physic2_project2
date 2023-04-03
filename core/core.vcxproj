@@ -159,6 +159,7 @@
     <ClCompile Include="src\Physic\cObject.cpp" />
     <ClCompile Include="src\Physic\CollisionListener.cpp" />
     <ClCompile Include="src\Physic\Physic.cpp" />
+    <ClCompile Include="src\Physic\PhysX.cpp" />
     <ClCompile Include="src\Shader\cShader.cpp" />
     <ClCompile Include="src\Shader\cShaderManager.cpp" />
     <ClCompile Include="src\Shader\cShaderProgram.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="src\Physic\cObject.h" />
     <ClInclude Include="src\Physic\CollisionListener.h" />
     <ClInclude Include="src\Physic\Physic.h" />
+    <ClInclude Include="src\Physic\PhysX.h" />
     <ClInclude Include="src\Shader\cShaderManager.h" />
     <ClInclude Include="src\Texture\C24BitBMPpixel.h" />
     <ClInclude Include="src\Texture\cTextureFromBMP.h" />

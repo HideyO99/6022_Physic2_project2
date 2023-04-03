@@ -32,6 +32,8 @@ public:
 	void createPlane();
 #endif
 	void createBall(cMeshObj* mOBJ,float size);
+	void createBox(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size);
+	void createFloor(cMeshObj* mGround);
 	
 	CollisionListener* collisionListener;
 	iPhysicFactory* Factory;

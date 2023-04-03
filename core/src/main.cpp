@@ -93,6 +93,8 @@ void createAnimation(cVAOManager* pVAOManager);
 void updateByFrameRate();
 bool FMOD_setup();
 
+void createPhysXscene(cVAOManager* pVAOManager);
+
 int main(void)
 {
 
@@ -252,22 +254,12 @@ int main(void)
 
     light0Setup(); // Dir light
 
-    //Physic2 project 1 section
+    //Physic2 project 2 section
     g_physic = new Physic();
     g_physic->init();
 
-#if SHOWWALL
-    g_physic->createPlane(pVAOManager->findMeshObjAddr("ground"),
-        pVAOManager->findMeshObjAddr("wallN"),
-        pVAOManager->findMeshObjAddr("wallE"),
-        pVAOManager->findMeshObjAddr("wallW"),
-        pVAOManager->findMeshObjAddr("wallS"));
-#endif
-    g_physic->createBall(pVAOManager->findMeshObjAddr("ball1"), 1);
-    g_physic->createBall(pVAOManager->findMeshObjAddr("ball2"), 2);
-    g_physic->createBall(pVAOManager->findMeshObjAddr("ball3"), 3);
-    g_physic->createBall(pVAOManager->findMeshObjAddr("ball4"), 4);
-    g_physic->createBall(pVAOManager->findMeshObjAddr("ball5"), 5);
+    createPhysXscene(pVAOManager);
+
 
     //FMOD
     result = FMOD_setup();
@@ -801,27 +793,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
     if (key == GLFW_KEY_1 && action == GLFW_RELEASE)
     {
-        g_physic->setActive(0);
+        //g_physic->setActive(0);
     }
 
     if (key == GLFW_KEY_2 && action == GLFW_RELEASE)
     {
-        g_physic->setActive(1);
+       // g_physic->setActive(1);
     }
 
     if (key == GLFW_KEY_3 && action == GLFW_RELEASE)
     {
-        g_physic->setActive(2);
+       // g_physic->setActive(2);
     }
 
     if (key == GLFW_KEY_4 && action == GLFW_RELEASE)
     {
-        g_physic->setActive(3);
+       // g_physic->setActive(3);
     }
 
     if (key == GLFW_KEY_5 && action == GLFW_RELEASE)
     {
-        g_physic->setActive(4);
+      //  g_physic->setActive(4);
     }
 
     //checkBorder();
@@ -1172,4 +1164,55 @@ void createAnimation(cVAOManager* pVAOManager)
     seq3_enemy4.Duration = 5.f;
     g_pAnimationManager->AddAnimation("RotationSlerpEaseInOut", seq3_enemy4);
     Enemy4->Animation.seq.push_back("RotationSlerpEaseInOut");
+}
+
+void createPhysXscene(cVAOManager* pVAOManager)
+{
+    pVAOManager->setInstanceObjLighting("floor", false);
+    g_physic->createFloor(pVAOManager->findMeshObjAddr("floor"));
+    
+    //stacked box
+    for (int i = 0; i < 16; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            std::string instantName = "box" + std::to_string(i) + "_"+ std::to_string(j);
+            pVAOManager->createOBJ("box", instantName, glm::vec3(i, j, 0), glm::vec3(0.5));
+            pVAOManager->setInstanceObjRGB(instantName, glm::vec4(1, 0, 0, 1));
+            pVAOManager->setInstanceObjLighting(instantName, true);
+            g_physic->createBox(pVAOManager->findMeshObjAddr(instantName), glm::vec3(i, j+1, 16-i), glm::vec3(1));
+        }
+    }
+
+    //static box
+    for (int i = 1; i < 4; i++)
+    {
+        std::string instantName = "static_box" + std::to_string(i);
+        pVAOManager->createOBJ("box", instantName, glm::vec3(i, 1, 0), glm::vec3(i*0.5));
+        pVAOManager->setInstanceObjRGB(instantName, glm::vec4(1, 1, 1, 1));
+        pVAOManager->setInstanceObjLighting(instantName, true);
+        g_physic->createBox(pVAOManager->findMeshObjAddr(instantName), glm::vec3(i*(-4), i, i * (-4)), glm::vec3(i));
+    }
+
+    //Bowling pin
+    int count = 0;
+    glm::vec3 offset = glm::vec3(-10,0,10);
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < i+1; j++)
+        {
+            std::string instantName = "pin" + std::to_string(count);
+            count++;
+            glm::vec3 pos = glm::vec3((j * 2 - i) , 1, i );
+            pVAOManager->createOBJ("pin", instantName, pos + offset, glm::vec3(0.02));
+            pVAOManager->setTexture(instantName, "Dungeons_2_Texture_01_A.bmp", 0);
+            pVAOManager->setTextureRatio(instantName, 0, 1);
+            pVAOManager->setInstanceObjLighting(instantName, false);
+        }
+    }
+    g_physic->createBall(pVAOManager->findMeshObjAddr("ball1"), 1);
+//    g_physic->createBall(pVAOManager->findMeshObjAddr("ball2"), 2);
+//    g_physic->createBall(pVAOManager->findMeshObjAddr("ball3"), 3);
+//    g_physic->createBall(pVAOManager->findMeshObjAddr("ball4"), 4);
+//    g_physic->createBall(pVAOManager->findMeshObjAddr("ball5"), 5);
 }

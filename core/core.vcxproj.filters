@@ -141,6 +141,9 @@
     <ClCompile Include="src\FMOD\FModManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Physic\PhysX.cpp">
+      <Filter>Physic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\globalOpenGL.h">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="src\FMOD\FmodManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physic\PhysX.h">
+      <Filter>Physic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -494,9 +494,9 @@ bool cVAOManager::setDungeonTexture(std::string meshObjName, std::string texture
 			itCurrentMesh->second->bUse_RGBA_colour = false;
 			itCurrentMesh->second->textures[0] = textureFile;
 			itCurrentMesh->second->textureRatios[0] = 1;
-			itCurrentMesh->second->scale = glm::vec3(0.01);
-			itCurrentMesh->second->position.x = itCurrentMesh->second->position.x * 5;
-			itCurrentMesh->second->position.z = itCurrentMesh->second->position.z * 5;
+			itCurrentMesh->second->scale = glm::vec3(0.064f, 0.01f, 0.064f);
+			itCurrentMesh->second->position.x = itCurrentMesh->second->position.x * 1;
+			itCurrentMesh->second->position.z = itCurrentMesh->second->position.z * 1;
 			itCurrentMesh->second->isVisible = true;
 		}
 		if ((itCurrentMesh->second->meshName == "obstacle"))
@@ -554,4 +554,16 @@ bool cVAOManager::setTorchTexture(std::string meshObjName, std::string textureFi
 		}
 	}
 	return true;
+}
+
+void cVAOManager::createOBJ(std::string meshObjName, std::string InstantName, glm::vec3 pos, glm::vec3 size)
+{
+	cMeshObj* pModedelInsance = new cMeshObj();
+	pModedelInsance->meshName = meshObjName;
+	pModedelInsance->instanceName = InstantName;
+	pModedelInsance->position = pos;
+	pModedelInsance->scale = size;
+
+	mapInstanceNametoMeshObj.emplace(InstantName, pModedelInsance);
+	pVecInstanceMeshObj.push_back(pModedelInsance);
 }
