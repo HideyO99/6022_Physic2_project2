@@ -1190,7 +1190,7 @@ void createPhysXscene(cVAOManager* pVAOManager)
         pVAOManager->createOBJ("box", instantName, glm::vec3(i, 1, 0), glm::vec3(i*0.5));
         pVAOManager->setInstanceObjRGB(instantName, glm::vec4(1, 1, 1, 1));
         pVAOManager->setInstanceObjLighting(instantName, true);
-        g_physic->createBox(pVAOManager->findMeshObjAddr(instantName), glm::vec3(i*(-4), i, i * (-4)), glm::vec3(i));
+        g_physic->createBox(pVAOManager->findMeshObjAddr(instantName), glm::vec3(i*(-4), i, i * (-4)), glm::vec3(i) , true);
     }
 
     //Bowling pin

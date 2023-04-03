@@ -41,8 +41,18 @@ void Physic::update(float dt)
 		iRigidBody* rigidBody = dynamic_cast<iRigidBody*>(ball->PhysicBody);
 		if (ball->PhysicBody != nullptr)
 		{
-			ball->pMeshObj->position = rigidBody->getPosition();
-			ball->pMeshObj->rotation = glm::eulerAngles(rigidBody->getRotation());
+			ball->pMeshObj->position = rigidBody->getPositionFromPhysX();
+			ball->pMeshObj->rotation = glm::eulerAngles(rigidBody->getRotationFromPhysX());
+		}
+	}
+	for (int i = 0; i < m_ObjList.size(); i++)
+	{
+		cObject* obj = m_ObjList[i];
+		iRigidBody* rigidBody = dynamic_cast<iRigidBody*>(obj->PhysicBody);
+		if (obj->PhysicBody != nullptr)
+		{
+			obj->pMeshObj->position = rigidBody->getPositionFromPhysX();
+			obj->pMeshObj->rotation = glm::eulerAngles(rigidBody->getRotationFromPhysX());
 		}
 	}
 }
@@ -215,7 +225,7 @@ void Physic::createPlane(cMeshObj* mGround, cMeshObj* mWallN, cMeshObj* mWallE, 
 }
 #endif
 
-void Physic::createBall(cMeshObj* mOBJ, glm::vec3 pos, float size)
+void Physic::createBall(cMeshObj* mOBJ, glm::vec3 pos, float size, bool isStatic)
 {
 	cObject* ball = new cObject();
 	ball->pMeshObj = mOBJ;
@@ -224,7 +234,7 @@ void Physic::createBall(cMeshObj* mOBJ, glm::vec3 pos, float size)
 	ball->position = ball->pMeshObj->position;
 	iShape* ballShape = new iSphereShape(size);
 	iRigidBodyDesc desc;
-	desc.bStatic = false;
+	desc.bStatic = isStatic;
 	desc.mass = size;
 	desc.position = ball->position;
 	desc.velocity = glm::vec3(0.f);
@@ -233,7 +243,7 @@ void Physic::createBall(cMeshObj* mOBJ, glm::vec3 pos, float size)
 	m_ballList.push_back(ball);
 }
 
-void Physic::createBox(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size)
+void Physic::createBox(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size, bool isStatic)
 {
 	cObject* box = new cObject();
 
@@ -244,13 +254,13 @@ void Physic::createBox(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size)
 	glm::vec3 halfExtent = glm::vec3(size.x / 2, size.y / 2, size.z / 2);
 	iShape* boxShape = new iBoxShape(halfExtent);
 	iRigidBodyDesc desc;
-	desc.bStatic = false;
+	desc.bStatic = isStatic;
 	desc.mass = 1;
 	desc.position = box->position;
 	desc.velocity = glm::vec3(0.f);
 	box->PhysicBody = Factory->createRigidBody(desc, boxShape);
 	World->addBody(box->PhysicBody);
-	//m_ballList.push_back(box);
+	m_ObjList.push_back(box);
 }
 
 void Physic::createFloor(cMeshObj* mGround)
@@ -272,7 +282,7 @@ void Physic::createFloor(cMeshObj* mGround)
 	World->addBody(floor->PhysicBody);
 }
 
-void Physic::createCylinder(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size)
+void Physic::createCylinder(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size, bool isStatic)
 {
 	cObject* cylinder = new cObject();
 	cylinder->pMeshObj = mOBJ;
@@ -281,11 +291,12 @@ void Physic::createCylinder(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size)
 	glm::vec3 halfExtent = glm::vec3(size.x / 2, size.y / 2, size.z / 2);
 	iShape* cylinderShape = new iCylinderShape(halfExtent);
 	iRigidBodyDesc desc;
-	desc.bStatic = false;
+	desc.bStatic = isStatic;
 	desc.mass = 1;
 	desc.position = cylinder->position;
 	desc.velocity = glm::vec3(0.f);
 	cylinder->PhysicBody = Factory->createRigidBody(desc, cylinderShape);
 	World->addBody(cylinder->PhysicBody);
+	m_ObjList.push_back(cylinder);
 }
 
