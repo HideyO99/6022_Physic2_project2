@@ -30,6 +30,9 @@ public:
 	virtual void addTorque(const Vec3& torque) override;
 	virtual void addTorqueImpulse(const Vec3& torqueImpulse) override;
 
+	virtual Vec3 getPositionFromPhysX() override;
+	virtual Quat getRotationFromPhysX() override;
+
 
 	void setGravity(const Vec3& gravity);
 	void updateAcc();

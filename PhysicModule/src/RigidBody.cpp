@@ -60,6 +60,7 @@ bool RigidBody::isStatic()
 Vec3 RigidBody::getPosition()
 {
 	return m_position;
+
 }
 
 void RigidBody::setPosition(const Vec3& pos)
@@ -70,6 +71,7 @@ void RigidBody::setPosition(const Vec3& pos)
 Quat RigidBody::getRotation()
 {
 	return m_rotation;
+
 }
 
 void RigidBody::setRotation(const Quat& rotate)
@@ -79,48 +81,79 @@ void RigidBody::setRotation(const Quat& rotate)
 
 void RigidBody::addForce(const Vec3& force)
 {
-	m_force += force;
+	physx::PxVec3 physXForce = physx::PxVec3(force.x, force.y, force.z);
+	if (pActor->is<physx::PxRigidDynamic>())
+	{
+		physx::PxRigidDynamic* dynamicActor = (physx::PxRigidDynamic*)pActor;
+		dynamicActor->addForce(physXForce, physx::PxForceMode::eACCELERATION);
+	}
+
 }
 
 void RigidBody::addForceAP(const Vec3& force, const Vec3& at)
 {
-	addForce(force);
-	addTorque(glm::cross(at, force));
+	//addForce(force);
+	//addTorque(glm::cross(at, force));
 }
 
 void RigidBody::addImpulse(const Vec3& impulse)
 {
-	m_velocity += impulse * m_inverseMass;
+	//m_velocity += impulse * m_inverseMass;
 }
 
 void RigidBody::addImpulseAP(const Vec3& impulse, const Vec3& at)
 {
-	addTorqueImpulse(glm::cross(at, impulse));
+	//addTorqueImpulse(glm::cross(at, impulse));
 }
 
 void RigidBody::addTorque(const Vec3& torque)
 {
-	m_torque += torque;
+	//m_torque += torque;
 }
 
 void RigidBody::addTorqueImpulse(const Vec3& torqueImpulse)
 {
-	m_angularVelocity += torqueImpulse;
+	//m_angularVelocity += torqueImpulse;
+}
+
+Vec3 RigidBody::getPositionFromPhysX()
+{
+	physx::PxTransform pos = pActor->getGlobalPose();
+	Vec3 glmPos;
+
+	glmPos.x = pos.p.x;
+	glmPos.y = pos.p.y;
+	glmPos.z = pos.p.z;
+
+	return glmPos;
+}
+
+Quat RigidBody::getRotationFromPhysX()
+{
+	physx::PxTransform rotate = pActor->getGlobalPose();
+	Quat glmRotate;
+
+	glmRotate.x = rotate.q.x;
+	glmRotate.y = rotate.q.y;
+	glmRotate.z = rotate.q.z;
+	glmRotate.w = rotate.q.w;
+
+	return glmRotate;
 }
 
 void RigidBody::setGravity(const Vec3& gravity)
 {
-	m_gravity = gravity;
+	//m_gravity = gravity;
 }
 
 void RigidBody::updateAcc()
 {
-	if (m_bStatic)
-	{
-		return;
-	}
-	m_acceleration = (m_force * m_inverseMass) + m_gravity;
-	m_angularAcceleration = m_torque;
+	//if (m_bStatic)
+	//{
+	//	return;
+	//}
+	//m_acceleration = (m_force * m_inverseMass) + m_gravity;
+	//m_angularAcceleration = m_torque;
 }
 
 void RigidBody::verletStep1(float dt)

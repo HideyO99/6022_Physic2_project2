@@ -21,7 +21,8 @@ public:
 
 	virtual void addTorque(const Vec3& torque) = 0;
 	virtual void addTorqueImpulse(const Vec3& torqueImpulse) = 0;
-
+	virtual Vec3 getPositionFromPhysX() = 0;
+	virtual Quat getRotationFromPhysX() = 0;
 protected:
 	iRigidBody() : iCollision(BodyType::RigidBody)
 	{
