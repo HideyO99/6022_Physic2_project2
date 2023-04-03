@@ -1,20 +1,15 @@
 INFO-6022 - Physics & Simulation II, Winter 2023
-Project # 1: Rigid Body Collisions
+Project # 2: 3rd Party Physics Library
 Create by Siraphong Chinsaengchai
 
 Git url:
-https://github.com/HideyO99/6022_Project1.git
+https://github.com/HideyO99/6022_Physic2_project2.git
 
 Note!! :
-Please compile "core" project in x64 platform and run 
-There are 5 balls, 4 sides of wall and ground
+Please compile "core" project in x64 debug platform and run 
 
 Key input:
-	1			-> select ball r = 1
-	2			-> select ball r = 2
-	3			-> select ball r = 3
-	4			-> select ball r = 4
-	5			-> select ball r = 5
+	spacebar    -> add new ball with random position and size
 
 	Right arrow -> turn camera position
 	Left arrow 	-> turn camera position
