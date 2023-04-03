@@ -68,6 +68,8 @@ AnimationManager* g_pAnimationManager = NULL;
 Physic* g_physic = nullptr;
 cXML* xml = nullptr;
 FModManager* fmodmanager = nullptr;
+cMeshObj* g_meshBall = nullptr;
+cVAOManager* gVAOManager = nullptr;
 
 static void error_callback(int error, const char* description)
 {
@@ -749,20 +751,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
     if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
     {
-        ////::g_cameraEye = glm::vec3(-5.5f, -3.4f, 15.0f);
-        ////::g_cameraEye = glm::vec3(0.0, 100.0, 300.0f);
-        ////::g_cameraTarget = glm::vec3(5.0f, 0.0f, 0.0f);
-        ////bIsWalkAround = !bIsWalkAround;
-        //g_PlayAnimation = !g_PlayAnimation;
-        //g_pAnimationManager->play(g_PlayAnimation);
-        //if (g_PlayAnimation)
-        //{
-        //    std::cout << "Play Animation" << std::endl;
-        //}
-        //else
-        //{
-        //    std::cout << "Pause Animation" << std::endl;
-        //}
+        glm::vec3 pos;
+        pos.x = rand() % 32 - 16;
+        pos.y = rand() % 20 + 5;
+        pos.z = rand() % 32 - 16;
+        float size = float(rand() % 4)+1;
+        std::string instantName = "ball" + std::to_string(g_physic->m_ballList.size());
+        gVAOManager->createOBJ("ball", instantName, pos, glm::vec3(size));
+        gVAOManager->setInstanceObjRGB(instantName, glm::vec4(1, 0, 0, 1));
+        gVAOManager->setInstanceObjLighting(instantName, true);
+        g_physic->createBall(gVAOManager->findMeshObjAddr(instantName), pos, size);
+        g_physic->setActive(g_physic->m_ballList.size()-1);
     }
     if (key == GLFW_KEY_UP)//&& action == GLFW_RELEASE)
     {
@@ -1211,7 +1210,8 @@ void createPhysXscene(cVAOManager* pVAOManager)
             g_physic->createCylinder(pVAOManager->findMeshObjAddr(instantName), pos, glm::vec3(1));
         }
     }
-    g_physic->createBall(pVAOManager->findMeshObjAddr("ball1"), 1);
+    gVAOManager = pVAOManager;
+    //g_physic->createBall(pVAOManager->findMeshObjAddr("ball1"), glm::vec3(0), 1);
 //    g_physic->createBall(pVAOManager->findMeshObjAddr("ball2"), 2);
 //    g_physic->createBall(pVAOManager->findMeshObjAddr("ball3"), 3);
 //    g_physic->createBall(pVAOManager->findMeshObjAddr("ball4"), 4);

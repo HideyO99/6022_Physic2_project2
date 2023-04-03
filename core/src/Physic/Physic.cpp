@@ -215,11 +215,11 @@ void Physic::createPlane(cMeshObj* mGround, cMeshObj* mWallN, cMeshObj* mWallE, 
 }
 #endif
 
-void Physic::createBall(cMeshObj* mOBJ,float size)
+void Physic::createBall(cMeshObj* mOBJ, glm::vec3 pos, float size)
 {
 	cObject* ball = new cObject();
 	ball->pMeshObj = mOBJ;
-	ball->pMeshObj->position.y = 10;
+	ball->pMeshObj->position = pos;
 	ball->pMeshObj->scale = glm::vec3(size);
 	ball->position = ball->pMeshObj->position;
 	iShape* ballShape = new iSphereShape(size);

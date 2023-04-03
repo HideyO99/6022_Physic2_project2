@@ -29,7 +29,7 @@ RigidBody::RigidBody(const iRigidBodyDesc& desc, iShape* shape)
 	{
 		m_mass = 0.f;
 		m_inverseMass = 0.f;
-		m_bStatic = true;
+ 		m_bStatic = true;
 	}
 	else 
 	{

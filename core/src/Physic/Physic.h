@@ -31,7 +31,7 @@ public:
 #else
 	void createPlane();
 #endif
-	void createBall(cMeshObj* mOBJ,float size);
+	void createBall(cMeshObj* mOBJ, glm::vec3 pos, float size);
 	void createBox(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size);
 	void createFloor(cMeshObj* mGround);
 	void createCylinder(cMeshObj* mOBJ, glm::vec3 pos, glm::vec3 size);

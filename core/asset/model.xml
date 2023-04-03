@@ -13,7 +13,6 @@
 	</model>
 
 	<model name="ball">asset/model/UV_Sphere_Cylindrical_UIV_Projection_bullet.ply
-		<modelInstance>ball1<posX>0</posX><posZ>0</posZ><rotateY>0</rotateY></modelInstance>
 	</model>
 	
 	<model name="box">asset/model/Boundingbox.ply
